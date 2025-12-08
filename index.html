@@ -97,12 +97,28 @@
             text-decoration: none;
             font-size: 0.95rem;
             opacity: 0.6;
-            transition: opacity 0.3s;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #ff0040;
+            transition: width 0.3s ease;
         }
 
         nav a:hover {
             opacity: 1;
             color: #ff0040;
+        }
+
+        nav a:hover::after {
+            width: 100%;
         }
 
         .hero {
@@ -119,16 +135,43 @@
 
         h1 .red {
             color: #ff0040;
+            display: inline-block;
+            animation: slideInLeft 0.6s ease-out;
         }
 
         h1 .blue {
             color: #3a86ff;
+            display: inline-block;
+            animation: slideInRight 0.6s ease-out 0.2s both;
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
         }
 
         .subtitle {
             font-size: 1.3rem;
             opacity: 0.5;
             max-width: 600px;
+            animation: fadeInUp 0.8s ease-out 0.4s both;
         }
 
         .work-section {
@@ -141,6 +184,7 @@
             text-transform: uppercase;
             opacity: 0.4;
             margin-bottom: 60px;
+            animation: fadeInUp 0.6s ease-out;
         }
 
         .projects {
@@ -187,6 +231,11 @@
             font-weight: 600;
             margin-bottom: 8px;
             letter-spacing: -0.5px;
+            transition: color 0.3s ease;
+        }
+
+        .project:hover .project-title {
+            color: #ff0040;
         }
 
         .project-meta {
@@ -197,6 +246,7 @@
         .about-section {
             padding: 120px 0;
             max-width: 800px;
+            animation: fadeInUp 0.8s ease-out;
         }
 
         .about-text {
@@ -311,11 +361,13 @@
         .modal-left {
             flex: 1;
             min-width: 0;
+            animation: slideInLeft 0.4s ease-out 0.1s both;
         }
 
         .modal-right {
             flex: 1;
             min-width: 0;
+            animation: slideInRight 0.4s ease-out 0.2s both;
         }
 
         .modal-close {
@@ -503,7 +555,7 @@
         <section class="about-section" id="about">
             <div class="section-label">About</div>
             <p class="about-text">
-                I'm a <span class="highlight">graphic designer</span> based in Toronto, experimenting with bold typography and visual storytelling. I work primarily in Adobe Express and Illustrator, creating posters for school projects and personal exploration.
+                I'm a <span class="highlight">graphic designer</span> based in Toronto, experimenting with bold typography and visual storytelling. I work primarily in Adobe Express and Illustrator, creating posters for personal exploration.
             </p>
 
             <div class="fun-fact">
