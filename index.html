@@ -42,6 +42,26 @@
             color: #fff;
             line-height: 1.6;
             overflow-x: hidden;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,255,255,.03) 2px, rgba(255,255,255,.03) 4px);
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0.5;
+        }
+
+        .container {
+            position: relative;
+            z-index: 2;
         }
 
         @keyframes fadeInUp {
@@ -75,6 +95,8 @@
             max-width: 1400px;
             margin: 0 auto;
             padding: 0 40px;
+            position: relative;
+            z-index: 2;
         }
 
         header {
@@ -247,6 +269,33 @@
             padding: 120px 0;
             max-width: 800px;
             animation: fadeInUp 0.8s ease-out;
+            position: relative;
+        }
+
+        .about-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100px;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(255, 0, 64, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .about-section::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: -150px;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(58, 134, 255, 0.08) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: -1;
         }
 
         .about-text {
@@ -267,6 +316,12 @@
             padding: 30px;
             border-left: 4px solid #3a86ff;
             margin-top: 40px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .fun-fact:hover {
+            transform: translateX(5px);
+            box-shadow: -5px 5px 0 rgba(58, 134, 255, 0.3);
         }
 
         .fun-fact h3 {
@@ -283,6 +338,30 @@
         .fun-fact .font-name {
             color: #ff0040;
             font-weight: 600;
+        }
+
+        .currently-box {
+            background: #111;
+            padding: 30px;
+            border-left: 4px solid #ff0040;
+            margin-top: 40px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .currently-box:hover {
+            transform: translateX(5px);
+            box-shadow: -5px 5px 0 rgba(255, 0, 64, 0.3);
+        }
+
+        .currently-box h3 {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: #ff0040;
+        }
+
+        .currently-box p {
+            font-size: 1.1rem;
+            opacity: 0.8;
         }
 
         footer {
@@ -356,6 +435,18 @@
             display: flex;
             gap: 60px;
             align-items: flex-start;
+            animation: modalSlideUp 0.4s ease-out;
+        }
+
+        @keyframes modalSlideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .modal-left {
@@ -561,6 +652,11 @@
             <div class="fun-fact">
                 <h3>Fun Fact</h3>
                 <p>My favourite font is <span class="font-name">Aalto Display</span> - it's got that perfect balance of elegance and personality that just makes every design feel a bit more special!</p>
+            </div>
+
+            <div class="currently-box">
+                <h3>Currently</h3>
+                <p>Learning JavaScript and digital illustrations</p>
             </div>
         </section>
 
