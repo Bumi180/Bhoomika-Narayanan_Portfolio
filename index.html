@@ -159,8 +159,8 @@
             background: #111;
             margin-bottom: 25px;
             transition: transform 0.3s;
-            cursor: pointer;
-            min-height: 500px;
+            cursor: none;
+            aspect-ratio: 2/3;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -172,8 +172,9 @@
 
         .project-image {
             width: 100%;
-            height: auto;
+            height: 100%;
             display: block;
+            object-fit: contain;
             transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
@@ -329,7 +330,7 @@
             transition: opacity 0.3s;
             padding: 0;
             line-height: 1;
-            cursor: pointer;
+            cursor: none;
             z-index: 10;
         }
 
@@ -422,7 +423,8 @@
         }
 
         .placeholder {
-            min-height: 500px;
+            aspect-ratio: 2/3;
+            width: 100%;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -466,7 +468,7 @@
                         <img src="Design philosophy.png" alt="My Design Philosophy" class="project-image">
                     </div>
                     <h3 class="project-title">My Design Philosophy</h3>
-                    <p class="project-meta">2025</p>
+                    <p class="project-meta">2025 • Adobe Illustrator</p>
                 </div>
 
                 <!-- Project 2 -->
@@ -475,25 +477,25 @@
                         <img src="ELearning poster (1) (1).png" alt="E-learn Campaign" class="project-image">
                     </div>
                     <h3 class="project-title">E-learn Campaign</h3>
-                    <p class="project-meta">2025</p>
+                    <p class="project-meta">2025 • Adobe Express</p>
                 </div>
 
                 <!-- Project 3 -->
                 <div class="project">
-                    <div class="project-image-wrapper">
-                        <div class="placeholder">Coming Soon</div>
+                    <div class="project-image-wrapper" onclick="openModal(2)">
+                        <img src="Untitled(1).png" alt="2025 Mood Board" class="project-image">
                     </div>
-                    <h3 class="project-title">Coming Soon</h3>
-                    <p class="project-meta">Stay tuned</p>
+                    <h3 class="project-title">2025 Mood Board</h3>
+                    <p class="project-meta">2025 • Adobe Express</p>
                 </div>
 
                 <!-- Project 4 -->
                 <div class="project">
-                    <div class="project-image-wrapper">
-                        <div class="placeholder">Coming Soon</div>
+                    <div class="project-image-wrapper" onclick="openModal(3)">
+                        <img src="Bhoomika_Narayanan_project1 (1).png" alt="Creative Journey" class="project-image">
                     </div>
-                    <h3 class="project-title">Coming Soon</h3>
-                    <p class="project-meta">Stay tuned</p>
+                    <h3 class="project-title">Creative Journey</h3>
+                    <p class="project-meta">2025 • Adobe Express</p>
                 </div>
             </div>
         </section>
@@ -560,14 +562,26 @@
             {
                 image: 'Design philosophy.png',
                 title: 'Design Philosophy',
-                meta: '2025',
-                description: 'A visual exploration of core design principles that guide my creative process. This poster breaks down the philosophy behind user-centered design, attention to detail, aesthetics, creative freedom, and iterative learning - all fundamental to how I approach every project.'
+                meta: '2025 • Adobe Illustrator',
+                description: 'A visual exploration of core design principles that guide my creative process. This poster breaks down the philosophy behind user-centered design, attention to detail, aesthetics, creative freedom, and iterative learning - all fundamental to how I approach every project. Created using a bold color palette of reds, blues, yellows, and oranges with chunky typography to make each principle stand out against the black background.'
             },
             {
                 image: 'ELearning poster (1) (1).png',
                 title: 'E-learn Campaign',
-                meta: '2025',
-                description: 'A bold campaign poster promoting the future of education technology. Combining retro halftone textures with vibrant gradients and modern typography, this piece captures the exciting intersection of creativity and innovation in instructional technology and design.'
+                meta: '2025 • Adobe Express',
+                description: 'A bold campaign poster promoting the future of education technology. Combining retro halftone textures with vibrant gradients and modern typography, this piece captures the exciting intersection of creativity and innovation in instructional technology and design. The gritty texture and bright red accents create an eye-catching contrast that draws you into the world of ed-tech.'
+            },
+            {
+                image: 'Untitled(2).png',
+                title: '2025 Mood Board',
+                meta: '2025 • Adobe Express',
+                description: 'A vibrant collage capturing my aspirations and inspirations for 2025. Featuring my motto "Sleep Move Create" and the word "Patience" as my guiding principle, this mood board blends photography, typography, and design elements in shades of mint, coral, yellow, and blue. From skateboarding silhouettes to color swatches and tea fields, each element represents different facets of my creative journey and goals to stay grounded while keeping moving forward.'
+            },
+            {
+                image: 'Bhoomika_Narayanan_project1 (1).png',
+                title: 'Creative Journey',
+                meta: '2025 • Adobe Express',
+                description: 'A personal branding poster documenting my creative journey from wall doodling with crayons to creating designs for the web. Featuring a playful illustrated self-portrait and cheerful colors - mint green, yellow, pink, and teal - this piece showcases my evolution as a designer. The organic shapes and hand-drawn aesthetic reflect my approachable design philosophy centered on research, design, and creation.'
             }
         ];
 
