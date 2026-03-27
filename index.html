@@ -297,6 +297,7 @@
       border:2px dashed rgba(0,0,0,0.25);
       background:var(--newsprint);
       transition:border-color 0.2s, transform 0.2s;
+      cursor:none;
     }
     .page-placeholder:hover { border-color:var(--black); transform:translateY(-3px); }
     .page-ph-inner {
@@ -318,7 +319,42 @@
       color:var(--black);
     }
 
-    /* ── WORK DIVIDER ── */
+    /* ── LIGHTBOX ── */
+    .lightbox {
+      display:none; position:fixed; z-index:2000;
+      inset:0; background:rgba(13,13,13,0.95);
+      align-items:center; justify-content:center;
+      padding:40px;
+    }
+    .lightbox.active { display:flex; }
+    .lightbox-close {
+      position:absolute; top:20px; right:28px;
+      font-family:'Bebas Neue',cursive; font-size:1.4rem;
+      letter-spacing:2px; color:var(--yellow);
+      background:none; border:none; cursor:none;
+      transition:transform 0.15s;
+      z-index:10;
+    }
+    .lightbox-close:hover { transform:rotate(90deg) scale(1.2); }
+    .lightbox-inner {
+      max-width:90vw; max-height:88vh;
+      display:flex; flex-direction:column;
+      align-items:center; gap:16px;
+      animation:punkPop 0.2s cubic-bezier(0.34,1.56,0.64,1);
+    }
+    .lightbox-img {
+      max-width:100%; max-height:80vh;
+      object-fit:contain;
+      border:3px solid var(--white);
+      box-shadow:8px 8px 0 var(--yellow);
+    }
+    .lightbox-caption {
+      font-family:'Bebas Neue',cursive;
+      font-size:1.2rem; letter-spacing:3px;
+      color:var(--white); text-align:center;
+    }
+
+    /* ── LIGHTBOX ── */
     .work-divider {
       display:flex; align-items:center; gap:16px;
       margin:48px 0 32px;
@@ -609,19 +645,19 @@
       <div class="page-strip">
         <div class="page-strip-label">// individual pages</div>
         <div class="page-strip-scroll">
-          <div class="page-placeholder">
+          <div class="page-placeholder" onclick="openLightbox('Desktop - 1.png','Home')">
             <img src="Desktop - 1.png" alt="Home" class="page-ph-img">
             <div class="page-ph-label">Home</div>
           </div>
-          <div class="page-placeholder">
+          <div class="page-placeholder" onclick="openLightbox('Desktop - 2.png','Decks')">
             <img src="Desktop - 2.png" alt="Decks" class="page-ph-img">
             <div class="page-ph-label">Decks</div>
           </div>
-          <div class="page-placeholder">
+          <div class="page-placeholder" onclick="openLightbox('Desktop - 3.png','Wheels')">
             <img src="Desktop - 3.png" alt="Wheels" class="page-ph-img">
             <div class="page-ph-label">Wheels</div>
           </div>
-          <div class="page-placeholder">
+          <div class="page-placeholder" onclick="openLightbox('Desktop - 4.png','Product Page')">
             <img src="Desktop - 4.png" alt="Product" class="page-ph-img">
             <div class="page-ph-label">Product Page</div>
           </div>
@@ -660,19 +696,19 @@
       <div class="page-strip">
         <div class="page-strip-label">// individual pages</div>
         <div class="page-strip-scroll">
-          <div class="page-placeholder">
+          <div class="page-placeholder" onclick="openLightbox('Home Page.png','Home')">
             <img src="Home Page.png" alt="Home" class="page-ph-img">
             <div class="page-ph-label">Home</div>
           </div>
-          <div class="page-placeholder">
+          <div class="page-placeholder" onclick="openLightbox('Ayurveda.png','Ancient Wisdom')">
             <img src="Ayurveda.png" alt="Ancient Wisdom" class="page-ph-img">
             <div class="page-ph-label">Ancient Wisdom</div>
           </div>
-          <div class="page-placeholder">
+          <div class="page-placeholder" onclick="openLightbox('Tea Basics.png','Tea Basics')">
             <img src="Tea Basics.png" alt="Tea Basics" class="page-ph-img">
             <div class="page-ph-label">Tea Basics</div>
           </div>
-          <div class="page-placeholder">
+          <div class="page-placeholder" onclick="openLightbox('Blendiing philosophy.png','Blending Philosophy')">
             <img src="Blendiing philosophy.png" alt="Blending Philosophy" class="page-ph-img">
             <div class="page-ph-label">Blending Philosophy</div>
           </div>
@@ -788,8 +824,14 @@
     </div>
   </footer>
 
-  <!-- MODAL -->
-  <div class="modal" id="projectModal">
+  <!-- LIGHTBOX for page screenshots -->
+  <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+    <button class="lightbox-close" onclick="closeLightbox()">[ CLOSE ]</button>
+    <div class="lightbox-inner" onclick="event.stopPropagation()">
+      <img class="lightbox-img" id="lightboxImg" src="#" alt="">
+      <div class="lightbox-caption" id="lightboxCaption"></div>
+    </div>
+  </div>
     <div class="modal-content">
       <div class="modal-bar">
         <span class="modal-bar-title">Project View</span>
@@ -912,6 +954,21 @@
 
     window.addEventListener('scroll', handleHeroScroll, { passive: true });
     handleHeroScroll(); // run once on load
+
+    // ── LIGHTBOX ──
+    function openLightbox(src, caption) {
+      document.getElementById('lightboxImg').src = src;
+      document.getElementById('lightboxCaption').textContent = caption;
+      document.getElementById('lightbox').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeLightbox() {
+      document.getElementById('lightbox').classList.remove('active');
+      document.body.style.overflow = 'auto';
+    }
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') { closeLightbox(); closeModal(); }
+    });
 
     // ── Modal ──
     const projects = [
