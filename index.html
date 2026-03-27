@@ -192,6 +192,148 @@
       color:var(--off); margin-top:-16px; display:block;
     }
 
+    /* ── FEATURED PROJECTS ── */
+    .featured-project {
+      border:3px solid var(--black);
+      margin-bottom:40px;
+      background:var(--white);
+      box-shadow:6px 6px 0 var(--black);
+    }
+    .featured-project-header {
+      display:flex; align-items:center; gap:24px;
+      padding:20px 28px;
+      border-bottom:3px solid var(--black);
+      background:var(--black);
+    }
+    .featured-num {
+      font-family:'Bebas Neue', cursive;
+      font-size:3rem; color:var(--yellow);
+      line-height:1; min-width:52px;
+    }
+    .featured-info { flex:1; }
+    .featured-title {
+      font-family:'Bebas Neue', cursive;
+      font-size:1.8rem; letter-spacing:2px;
+      color:var(--white); line-height:1;
+    }
+    .featured-meta {
+      font-family:'IBM Plex Mono', monospace;
+      font-size:0.65rem; font-weight:700;
+      letter-spacing:2px; text-transform:uppercase;
+      color:var(--off); margin-top:4px;
+    }
+    .featured-tags { display:flex; gap:8px; flex-wrap:wrap; }
+    .tag {
+      font-family:'IBM Plex Mono', monospace;
+      font-size:0.6rem; font-weight:700;
+      letter-spacing:2px; text-transform:uppercase;
+      padding:4px 10px;
+      border:1.5px solid rgba(255,255,255,0.25);
+      color:rgba(255,255,255,0.6);
+    }
+    .tag-link {
+      border-color:var(--yellow);
+      color:var(--yellow);
+      text-decoration:none;
+      transition:background 0.15s, color 0.15s;
+    }
+    .tag-link:hover { background:var(--yellow); color:var(--black); }
+
+    /* ── FIGMA EMBED ── */
+    .figma-embed-wrap {
+      border-bottom:3px solid var(--black);
+    }
+    .figma-browser-bar {
+      display:flex; align-items:center; gap:12px;
+      padding:10px 18px;
+      background:#1a1a1a;
+      border-bottom:2px solid #333;
+    }
+    .browser-dots { display:flex; gap:6px; }
+    .browser-dots span {
+      width:10px; height:10px; border-radius:50%;
+      background:#555;
+    }
+    .browser-dots span:nth-child(1) { background:#e05252; }
+    .browser-dots span:nth-child(2) { background:#e0b252; }
+    .browser-dots span:nth-child(3) { background:#52c052; }
+    .browser-url {
+      flex:1;
+      font-family:'IBM Plex Mono', monospace;
+      font-size:0.65rem; letter-spacing:1px;
+      color:rgba(255,255,255,0.35);
+      background:#111; padding:5px 12px;
+      border-radius:3px;
+    }
+    .browser-open {
+      font-family:'IBM Plex Mono', monospace;
+      font-size:0.65rem; font-weight:700;
+      letter-spacing:2px; color:var(--yellow);
+      text-decoration:none;
+      transition:opacity 0.2s;
+    }
+    .browser-open:hover { opacity:0.7; }
+    .figma-iframe {
+      display:block; width:100%; height:600px;
+      border:none; background:#f0ece0;
+    }
+
+    /* ── PAGE STRIP ── */
+    .page-strip { padding:24px 28px; }
+    .page-strip-label {
+      font-family:'IBM Plex Mono', monospace;
+      font-size:0.65rem; font-weight:700;
+      letter-spacing:3px; text-transform:uppercase;
+      color:var(--off); margin-bottom:16px;
+    }
+    .page-strip-scroll {
+      display:flex; gap:16px;
+      overflow-x:auto; padding-bottom:8px;
+    }
+    .page-strip-scroll::-webkit-scrollbar { height:4px; }
+    .page-strip-scroll::-webkit-scrollbar-thumb { background:var(--black); }
+    .page-placeholder {
+      flex:0 0 220px;
+      border:2px dashed rgba(0,0,0,0.25);
+      background:var(--newsprint);
+      transition:border-color 0.2s, transform 0.2s;
+    }
+    .page-placeholder:hover { border-color:var(--black); transform:translateY(-3px); }
+    .page-ph-inner {
+      height:140px;
+      display:flex; align-items:center; justify-content:center;
+      font-family:'IBM Plex Mono', monospace;
+      font-size:0.6rem; letter-spacing:1px;
+      color:rgba(0,0,0,0.3); text-align:center;
+      padding:12px;
+    }
+    .page-ph-img {
+      width:100%; height:160px;
+      object-fit:cover; object-position:top;
+      display:block;
+    }
+      border-top:2px dashed rgba(0,0,0,0.15);
+      font-family:'Bebas Neue', cursive;
+      font-size:1rem; letter-spacing:2px;
+      color:var(--black);
+    }
+
+    /* ── WORK DIVIDER ── */
+    .work-divider {
+      display:flex; align-items:center; gap:16px;
+      margin:48px 0 32px;
+    }
+    .work-divider-label {
+      font-family:'IBM Plex Mono', monospace;
+      font-size:0.7rem; font-weight:700;
+      letter-spacing:4px; text-transform:uppercase;
+      color:var(--off); white-space:nowrap;
+    }
+    .work-divider::after {
+      content:''; flex:1; height:2px;
+      background:repeating-linear-gradient(90deg,var(--black) 0,var(--black) 8px,transparent 8px,transparent 14px);
+    }
+
     /* ── WORK ── */
     /* FIX: collapse bleeds slightly into Selected Work */
     .work-section {
@@ -434,22 +576,124 @@
       <span class="section-num">— 01</span>
       <div class="section-dash"></div>
     </div>
+
+    <!-- ── FEATURED PROJECT 01: SKATE SHOP ── -->
+    <div class="featured-project reveal">
+      <div class="featured-project-header">
+        <div class="featured-num">01</div>
+        <div class="featured-info">
+          <div class="featured-title">Hammer Skateboard — Web Redesign</div>
+          <div class="featured-meta">2025 · Figma · UX/UI Design</div>
+        </div>
+        <div class="featured-tags">
+          <span class="tag">Web Design</span>
+          <span class="tag">Prototype</span>
+          <span class="tag">Figma</span>
+        </div>
+      </div>
+      <!-- Figma embed — live scrollable prototype -->
+      <div class="figma-embed-wrap">
+        <div class="figma-browser-bar">
+          <div class="browser-dots"><span></span><span></span><span></span></div>
+          <div class="browser-url">figma.com/proto · Hammer Skateboard Mockup</div>
+          <a href="https://www.figma.com/proto/Pxdi9zFawD6lYH2uMAIuWL/Hammer-Skateboard-Mockup?node-id=0-1&t=aW7Y2wJYY0p9EOzA-1" target="_blank" class="browser-open">↗ Open</a>
+        </div>
+        <iframe
+          src="https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fproto%2FPxdi9zFawD6lYH2uMAIuWL%2FHammer-Skateboard-Mockup%3Fnode-id%3D0-1%26t%3DaW7Y2wJYY0p9EOzA-1"
+          class="figma-iframe"
+          allowfullscreen
+          loading="lazy">
+        </iframe>
+      </div>
+      <!-- Page screenshots placeholder strip -->
+      <div class="page-strip">
+        <div class="page-strip-label">// individual pages</div>
+        <div class="page-strip-scroll">
+          <div class="page-placeholder">
+            <img src="Desktop - 1.png" alt="Home" class="page-ph-img">
+            <div class="page-ph-label">Home</div>
+          </div>
+          <div class="page-placeholder">
+            <img src="Desktop - 2.png" alt="Decks" class="page-ph-img">
+            <div class="page-ph-label">Decks</div>
+          </div>
+          <div class="page-placeholder">
+            <img src="Desktop - 3.png" alt="Wheels" class="page-ph-img">
+            <div class="page-ph-label">Wheels</div>
+          </div>
+          <div class="page-placeholder">
+            <img src="Desktop - 4.png" alt="Product" class="page-ph-img">
+            <div class="page-ph-label">Product Page</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── FEATURED PROJECT 02: THE ART OF TEA ── -->
+    <div class="featured-project reveal" style="transition-delay:0.1s">
+      <div class="featured-project-header">
+        <div class="featured-num">02</div>
+        <div class="featured-info">
+          <div class="featured-title">The Art of Tea</div>
+          <div class="featured-meta">2025 · Figma + netnet.studio · Web Design</div>
+        </div>
+        <div class="featured-tags">
+          <span class="tag">Web Design</span>
+          <span class="tag">HTML/CSS</span>
+          <span class="tag">Live Site</span>
+          <a href="https://bumi180.github.io/Final-Project-Website/" target="_blank" class="tag tag-link">↗ View Live</a>
+        </div>
+      </div>
+      <div class="figma-embed-wrap">
+        <div class="figma-browser-bar">
+          <div class="browser-dots"><span></span><span></span><span></span></div>
+          <div class="browser-url">figma.com/proto · The Art of Tea — High Resolution Mockup</div>
+          <a href="https://www.figma.com/proto/m6h73zIHFKYfeoCHBi8hzG/Narayanan_Bhoomika_High-resolution-mockup?t=aW7Y2wJYY0p9EOzA-1" target="_blank" class="browser-open">↗ Open</a>
+        </div>
+        <iframe
+          src="https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fproto%2Fm6h73zIHFKYfeoCHBi8hzG%2FNarayanan_Bhoomika_High-resolution-mockup%3Ft%3DaW7Y2wJYY0p9EOzA-1"
+          class="figma-iframe"
+          allowfullscreen
+          loading="lazy">
+        </iframe>
+      </div>
+      <div class="page-strip">
+        <div class="page-strip-label">// individual pages</div>
+        <div class="page-strip-scroll">
+          <div class="page-placeholder">
+            <img src="Home Page.png" alt="Home" class="page-ph-img">
+            <div class="page-ph-label">Home</div>
+          </div>
+          <div class="page-placeholder">
+            <img src="Ayurveda.png" alt="Ancient Wisdom" class="page-ph-img">
+            <div class="page-ph-label">Ancient Wisdom</div>
+          </div>
+          <div class="page-placeholder">
+            <img src="Tea Basics.png" alt="Tea Basics" class="page-ph-img">
+            <div class="page-ph-label">Tea Basics</div>
+          </div>
+          <div class="page-placeholder">
+            <img src="Blendiing philosophy.png" alt="Blending Philosophy" class="page-ph-img">
+            <div class="page-ph-label">Blending Philosophy</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── DIVIDER ── -->
+    <div class="work-divider reveal">
+      <span class="work-divider-label">// print & visual work</span>
+    </div>
+
+    <!-- ── SMALLER CARDS: Design Phil + E-learn ── -->
     <div class="projects-collage">
-      <div class="project reveal" data-num="01" style="transition-delay:0.05s" onclick="openModal(0)">
+      <div class="project reveal" data-num="03" style="transition-delay:0.05s" onclick="openModal(0)">
         <div class="project-image-wrapper"><img src="Design philosophy.png" alt="Design Philosophy" class="project-image"></div>
         <div class="project-info"><div><div class="project-title">My Design Philosophy</div><div class="project-meta">2025 · Adobe Illustrator</div></div><div class="project-arrow">→</div></div>
       </div>
-      <div class="project reveal" data-num="02" style="transition-delay:0.15s" onclick="openModal(1)">
+      <div class="project reveal" data-num="04" style="transition-delay:0.15s" onclick="openModal(1)">
         <div class="project-image-wrapper"><img src="ELearning poster (1) (1).png" alt="E-learn" class="project-image"></div>
         <div class="project-info"><div><div class="project-title">E-learn Campaign</div><div class="project-meta">2025 · Adobe Express</div></div><div class="project-arrow">→</div></div>
-      </div>
-      <div class="project reveal" data-num="03" style="transition-delay:0.25s" onclick="openModal(2)">
-        <div class="project-image-wrapper"><img src="Untitled (2).png" alt="Mood Board" class="project-image"></div>
-        <div class="project-info"><div><div class="project-title">2025 Mood Board</div><div class="project-meta">2025 · Adobe Express</div></div><div class="project-arrow">→</div></div>
-      </div>
-      <div class="project reveal" data-num="04" style="transition-delay:0.35s" onclick="openModal(3)">
-        <div class="project-image-wrapper"><img src="Bhoomika_Narayanan_project1 (1).png" alt="Creative Journey" class="project-image"></div>
-        <div class="project-info"><div><div class="project-title">Creative Journey</div><div class="project-meta">2025 · Adobe Express</div></div><div class="project-arrow">→</div></div>
       </div>
     </div>
   </section>
@@ -671,10 +915,8 @@
 
     // ── Modal ──
     const projects = [
-      { image:'Design philosophy.png',             title:'Design Philosophy', meta:'2025 · Adobe Illustrator', description:'A visual exploration of core design principles that guide my creative process. This poster breaks down the philosophy behind user-centered design, attention to detail, aesthetics, creative freedom, and iterative learning — all fundamental to how I approach every project.' },
-      { image:'ELearning poster (1) (1).png',       title:'E-learn Campaign',  meta:'2025 · Adobe Express',     description:'A bold campaign poster promoting the future of education technology. Combining retro halftone textures with vibrant gradients and modern typography, this piece captures the exciting intersection of creativity and innovation in instructional technology and design.' },
-      { image:'Untitled (2).png',                   title:'2025 Mood Board',   meta:'2025 · Adobe Express',     description:'A vibrant collage capturing my aspirations and inspirations for 2025. Featuring my motto "Sleep Move Create" and the word "Patience" as my guiding principle, this mood board blends photography, typography, and design elements in shades of mint, coral, yellow, and blue.' },
-      { image:'Bhoomika_Narayanan_project1 (1).png',title:'Creative Journey',  meta:'2025 · Adobe Express',     description:'A personal branding poster documenting my creative journey from wall doodling with crayons to creating designs for the web. Featuring a playful illustrated self-portrait and cheerful colors — mint green, yellow, pink, and teal.' }
+      { image:'Design philosophy.png', title:'Design Philosophy', meta:'2025 · Adobe Illustrator', description:'A visual exploration of core design principles that guide my creative process. This poster breaks down the philosophy behind user-centered design, attention to detail, aesthetics, creative freedom, and iterative learning — all fundamental to how I approach every project.' },
+      { image:'ELearning poster (1) (1).png', title:'E-learn Campaign', meta:'2025 · Adobe Express', description:'A bold campaign poster promoting the future of education technology. Combining retro halftone textures with vibrant gradients and modern typography, this piece captures the exciting intersection of creativity and innovation in instructional technology and design.' }
     ];
 
     function openModal(i) {
