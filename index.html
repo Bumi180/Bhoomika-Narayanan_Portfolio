@@ -66,7 +66,8 @@
     }
     .header-nav-block {
       flex:1; padding:0 32px;
-      display:flex; align-items:center; justify-content:space-between;
+      display:flex; align-items:center; justify-content:flex-end;
+      gap:32px;
       border-left:4px solid var(--black);
     }
     nav { display:flex; gap:0; }
@@ -339,7 +340,7 @@
   </div>
 
   <!-- NO AUTOPLAY — user clicks cassette to play -->
-  <audio id="bgAudio" loop preload="none">
+  <audio id="bgAudio" loop preload="auto">
     <source src="ES_Gentlemen_-_Vendla.mp3" type="audio/mpeg">
   </audio>
 
@@ -585,12 +586,25 @@
 
     function toggleMusic() {
       if (!playing) {
-        audio.play().then(() => {
-          playing = true;
-          casBtn.classList.add('playing');
-          casLabel.textContent = '■ PAUSE';
-          casLabel.classList.add('active');
-        }).catch(err => console.warn('Audio blocked:', err));
+        const playPromise = audio.play();
+        if (playPromise !== undefined) {
+          playPromise.then(() => {
+            playing = true;
+            casBtn.classList.add('playing');
+            casLabel.textContent = '■ PAUSE';
+            casLabel.classList.add('active');
+          }).catch(err => {
+            console.warn('Audio play failed:', err);
+            // Try loading then playing
+            audio.load();
+            audio.play().then(() => {
+              playing = true;
+              casBtn.classList.add('playing');
+              casLabel.textContent = '■ PAUSE';
+              casLabel.classList.add('active');
+            }).catch(e => console.warn('Still failed:', e));
+          });
+        }
       } else {
         audio.pause();
         playing = false;
@@ -599,6 +613,15 @@
         casLabel.classList.remove('active');
       }
     }
+
+    // Reset state if audio ends unexpectedly
+    audio.addEventListener('pause', () => {
+      if (!audio.ended) return;
+      playing = false;
+      casBtn.classList.remove('playing');
+      casLabel.textContent = '▶ PLAY';
+      casLabel.classList.remove('active');
+    });
 
     // ── SCROLL-DRIVEN FALL ──
     // Words physically fall proportional to scroll position,
@@ -681,4 +704,4 @@
     });
   </script>
 </body>
-</html> 
+</html>
