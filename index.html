@@ -334,7 +334,9 @@
       background:none; border:none; cursor:none;
       transition:transform 0.15s;
       z-index:10;
+      display:none;
     }
+    .lightbox.active .lightbox-close { display:block; }
     .lightbox-close:hover { transform:rotate(90deg) scale(1.2); }
     .lightbox-inner {
       max-width:90vw; max-height:88vh;
@@ -354,7 +356,8 @@
       color:var(--white); text-align:center;
     }
 
-    /* ── LIGHTBOX ── */
+    /* make clickable page cards actually clickable */
+    .page-placeholder { cursor: pointer !important; }
     .work-divider {
       display:flex; align-items:center; gap:16px;
       margin:48px 0 32px;
