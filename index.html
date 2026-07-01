@@ -1,1412 +1,544 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bhoomika Narayanan — Portfolio</title>
-    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,700;12..96,900&family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@400;700&display=swap" rel="stylesheet">
-    <style>
-      :root {
-        --white: #ffffff;
-        --soft: #f8f8f8;
-        --mint: #2ecc8e;
-        --mint-light: #edfaf4;
-        --mint-mid: rgba(46, 204, 142, 0.3);
-        --pink: #e8457a;
-        --pink-light: #fdf0f4;
-        --pink-mid: rgba(232, 69, 122, 0.3);
-        --ink: #111111;
-        --mid: #555555;
-        --muted: #aaaaaa;
-        --rule: rgba(0, 0, 0, 0.09);
-      }
-
-      *,
-      *::before,
-      *::after {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-      }
-
-      html {
-        scroll-behavior: smooth;
-      }
-
-      body {
-        background: var(--white);
-        font-family: 'Bricolage Grotesque', sans-serif;
-        color: var(--ink);
-        overflow-x: hidden;
-      }
-
-      .cursor {
-        width: 16px;
-        height: 16px;
-        border: 2px solid var(--pink);
-        border-radius: 50%;
-        position: fixed;
-        pointer-events: none;
-        z-index: 9999;
-        transform: translate(-50%, -50%);
-        transition: transform 0.1s ease, background 0.2s ease;
-        mix-blend-mode: multiply;
-      }
-
-      .cursor.clicked {
-        transform: translate(-50%, -50%) scale(0.6);
-        background: var(--pink);
-      }
-
-      @media (hover: none) {
-        .cursor {
-          display: none;
-        }
-      }
-
-      .page {
-        display: flex;
-        min-height: 100vh;
-      }
-
-      .stripe {
-        width: 6px;
-        flex-shrink: 0;
-        background: var(--pink);
-        position: sticky;
-        top: 0;
-        height: 100vh;
-        align-self: flex-start;
-      }
-
-      .main {
-        flex: 1;
-        min-width: 0;
-      }
-
-      nav {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 18px 36px;
-        border-bottom: 1px solid var(--rule);
-        position: sticky;
-        top: 0;
-        z-index: 100;
-        background: rgba(255, 255, 255, 0.95);
-        backdrop-filter: blur(8px);
-      }
-
-      .nav-left {
-        display: flex;
-        align-items: center;
-      }
-
-      .nav-name {
-        font-family: 'IBM Plex Mono', monospace;
-        font-size: 11px;
-        font-weight: 700;
-        letter-spacing: 3px;
-        text-transform: uppercase;
-        color: var(--ink);
-      }
-
-      .nav-sub {
-        font-family: 'IBM Plex Mono', monospace;
-        font-size: 9px;
-        letter-spacing: 2px;
-        text-transform: uppercase;
-        color: var(--muted);
-        margin-left: 10px;
-      }
-
-      .nav-dot {
-        display: inline-block;
-        width: 7px;
-        height: 7px;
-        border-radius: 50%;
-        background: var(--mint);
-        margin-left: 8px;
-        vertical-align: middle;
-      }
-
-      .nav-links {
-        display: flex;
-        gap: 0;
-        align-items: center;
-      }
-
-      .nav-links a {
-        font-family: 'IBM Plex Mono', monospace;
-        font-size: 10px;
-        font-weight: 700;
-        letter-spacing: 2px;
-        text-transform: uppercase;
-        color: var(--muted);
-        text-decoration: none;
-        padding: 6px 18px;
-        transition: color 0.15s;
-      }
-
-      .nav-links a:hover {
-        color: var(--ink);
-      }
-
-      .nav-cv {
-        font-family: 'IBM Plex Mono', monospace;
-        font-size: 10px;
-        font-weight: 700;
-        letter-spacing: 2px;
-        text-transform: uppercase;
-        color: var(--pink);
-        text-decoration: none;
-        padding: 6px 0 6px 18px;
-        transition: opacity 0.15s;
-      }
-
-      .nav-cv:hover {
-        opacity: 0.7;
-      }
-
-      .hero {
-        padding: 60px 36px 48px;
-        border-bottom: 1px solid var(--rule);
-      }
-
-      .hero-kicker {
-        font-family: 'Instrument Serif', serif;
-        font-style: italic;
-        font-size: 22px;
-        color: var(--muted);
-        display: block;
-        margin-bottom: 4px;
-        transform: rotate(-1.5deg);
-        transform-origin: left;
-      }
-
-      .hero-h1 {
-        font-family: 'Bricolage Grotesque', sans-serif;
-        font-size: clamp(60px, 10vw, 96px);
-        font-weight: 900;
-        line-height: 0.87;
-        letter-spacing: -3px;
-        color: var(--ink);
-        margin-bottom: 32px;
-      }
-
-      .hero-h1 .mint {
-        color: var(--mint);
-      }
-
-      .hero-h1 .ghost {
-        color: transparent;
-        -webkit-text-stroke: 2.5px var(--ink);
-      }
-
-      .hero-bottom {
-        display: flex;
-        align-items: flex-end;
-        justify-content: space-between;
-        gap: 24px;
-        flex-wrap: wrap;
-      }
-
-      .hero-sub {
-        font-family: 'IBM Plex Mono', monospace;
-        font-size: 10px;
-        letter-spacing: 1.5px;
-        line-height: 2.2;
-        text-transform: uppercase;
-        color: var(--muted);
-      }
-
-      .hero-tags {
-        display: flex;
-        gap: 8px;
-        flex-wrap: wrap;
-      }
-
-      .tag {
-        font-family: 'IBM Plex Mono', monospace;
-        font-size: 9px;
-        font-weight: 700;
-        letter-spacing: 1px;
-        text-transform: uppercase;
-        padding: 5px 14px;
-        border-radius: 99px;
-        border: 1px solid var(--rule);
-        color: var(--mid);
-        background: var(--white);
-        transition: border-color 0.15s;
-      }
-
-      .tag:hover {
-        border-color: var(--ink);
-      }
-
-      .tag-mint {
-        background: var(--mint-light);
-        border-color: var(--mint-mid);
-        color: var(--mint);
-      }
-
-      .tag-pink {
-        background: var(--pink-light);
-        border-color: var(--pink-mid);
-        color: var(--pink);
-      }
-
-      .section-head {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 14px 36px;
-        border-bottom: 1px solid var(--rule);
-      }
-
-      .section-label {
-        font-family: 'IBM Plex Mono', monospace;
-        font-size: 10px;
-        font-weight: 700;
-        letter-spacing: 4px;
-        text-transform: uppercase;
-        color: var(--ink);
-      }
-
-      .section-count {
-        font-family: 'IBM Plex Mono', monospace;
-        font-size: 10px;
-        letter-spacing: 2px;
-        color: var(--muted);
-      }
-
-      .featured {
-        display: grid;
-        grid-template-columns: 1.4fr 1fr;
-        border-bottom: 1px solid var(--rule);
-      }
-
-      .feat-media {
-        border-right: 1px solid var(--rule);
-        background: var(--mint-light);
-        position: relative;
-        overflow: hidden;
-      }
-
-      .feat-media iframe {
-        display: block;
-        width: 100%;
-        height: 100%;
-        min-height: 360px;
-        border: none;
-      }
-
-      .feat-badge {
-        position: absolute;
-        top: 14px;
-        left: 14px;
-        z-index: 2;
-        background: var(--pink);
-        color: #fff;
-        font-family: 'IBM Plex Mono', monospace;
-        font-size: 9px;
-        font-weight: 700;
-        letter-spacing: 2px;
-        text-transform: uppercase;
-        padding: 4px 12px;
-        border-radius: 99px;
-      }
-
-      .feat-img-static {
-        width: 100%;
-        height: 100%;
-        min-height: 360px;
-        object-fit: cover;
-        object-position: top;
-        display: block;
-      }
-
-      .feat-info {
-        padding: 32px 28px;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-      }
-
-      .feat-num {
-        font-family: 'IBM Plex Mono', monospace;
-        font-size: 9px;
-        font-weight: 700;
-        letter-spacing: 2px;
-        color: var(--pink);
-        margin-bottom: 10px;
-      }
-
-      .feat-title {
-        font-size: 28px;
-        font-weight: 900;
-        letter-spacing: -0.5px;
-        color: var(--ink);
-        line-height: 1;
-        margin-bottom: 8px;
-      }
-
-      .feat-meta {
-        font-family: 'IBM Plex Mono', monospace;
-        font-size: 9px;
-        letter-spacing: 1px;
-        text-transform: uppercase;
-        color: var(--muted);
-        margin-bottom: 12px;
-      }
-
-      .feat-desc {
-        font-family: 'IBM Plex Mono', monospace;
-        font-size: 9px;
-        letter-spacing: 1px;
-        line-height: 2;
-        text-transform: uppercase;
-        color: var(--muted);
-        margin-bottom: 16px;
-      }
-
-      .feat-tags {
-        display: flex;
-        gap: 6px;
-        flex-wrap: wrap;
-        margin-bottom: 24px;
-      }
-
-      .feat-arrow {
-        font-size: 32px;
-        color: var(--mint);
-        font-weight: 900;
-        text-decoration: none;
-        display: inline-block;
-        transition: transform 0.2s ease;
-      }
-
-      .feat-arrow:hover {
-        transform: translateX(6px);
-      }
-
-      .thumb-strip {
-        border-top: 1px solid var(--rule);
-        padding: 16px 28px;
-      }
-
-      .thumb-strip-label {
-        font-family: 'IBM Plex Mono', monospace;
-        font-size: 9px;
-        font-weight: 700;
-        letter-spacing: 3px;
-        text-transform: uppercase;
-        color: var(--muted);
-        margin-bottom: 10px;
-      }
-
-      .thumbs {
-        display: flex;
-        gap: 10px;
-        overflow-x: auto;
-        padding-bottom: 4px;
-      }
-
-      .thumbs::-webkit-scrollbar {
-        height: 3px;
-      }
-
-      .thumbs::-webkit-scrollbar-thumb {
-        background: var(--pink);
-      }
-
-      .thumb {
-        flex: 0 0 100px;
-        border: 1px solid var(--rule);
-        background: var(--soft);
-        cursor: pointer;
-        transition: border-color 0.15s, transform 0.15s;
-      }
-
-      .thumb:hover {
-        border-color: var(--pink);
-        transform: translateY(-2px);
-      }
-
-      .thumb img {
-        width: 100%;
-        height: 60px;
-        object-fit: cover;
-        object-position: top;
-        display: block;
-      }
-
-      .thumb-label {
-        font-family: 'Bricolage Grotesque', sans-serif;
-        font-size: 11px;
-        font-weight: 700;
-        color: var(--ink);
-        padding: 5px 8px;
-        display: block;
-        border-top: 1px solid var(--rule);
-      }
-
-      .proj-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
-        border-bottom: 1px solid var(--rule);
-      }
-
-      .proj-cell {
-        border-right: 1px solid var(--rule);
-        cursor: pointer;
-        transition: background 0.15s;
-      }
-
-      .proj-cell:last-child {
-        border-right: none;
-      }
-
-      .proj-cell:hover {
-        background: var(--soft);
-      }
-
-      .proj-img {
-        width: 100%;
-        aspect-ratio: 3/2;
-        overflow: hidden;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-
-      .proj-img img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        object-position: top;
-        display: block;
-        transition: transform 0.4s ease;
-      }
-
-      .proj-cell:hover .proj-img img {
-        transform: scale(1.04);
-      }
-
-      .bg-pink {
-        background: var(--pink-light);
-      }
-
-      .bg-soft {
-        background: var(--soft);
-      }
-
-      .bg-mint {
-        background: var(--mint-light);
-      }
-
-      .bg-dark {
-        background: #1a1a1a;
-      }
-
-      .bg-blue {
-        background: #e8f0ff;
-      }
-
-      .proj-foot {
-        padding: 12px 18px;
-        border-top: 1px solid var(--rule);
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-end;
-      }
-
-      .proj-num {
-        font-family: 'IBM Plex Mono', monospace;
-        font-size: 9px;
-        font-weight: 700;
-        letter-spacing: 2px;
-        color: var(--muted);
-        margin-bottom: 4px;
-      }
-
-      .proj-title {
-        font-size: 17px;
-        font-weight: 700;
-        color: var(--ink);
-      }
-
-      .proj-meta {
-        font-family: 'IBM Plex Mono', monospace;
-        font-size: 9px;
-        letter-spacing: 1px;
-        text-transform: uppercase;
-        color: var(--muted);
-        margin-top: 2px;
-      }
-
-      .proj-arrow {
-        font-size: 20px;
-        color: var(--mint);
-        font-weight: 900;
-        opacity: 0;
-        transition: opacity 0.2s;
-      }
-
-      .proj-cell:hover .proj-arrow {
-        opacity: 1;
-      }
-
-      .bottom-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        border-bottom: 1px solid var(--rule);
-      }
-
-      .about-block {
-        padding: 36px;
-        border-right: 1px solid var(--rule);
-      }
-
-      .about-h {
-        font-size: 48px;
-        font-weight: 900;
-        letter-spacing: -1.5px;
-        color: var(--ink);
-        line-height: 0.88;
-        margin-bottom: 20px;
-      }
-
-      .about-h .pink {
-        color: var(--pink);
-      }
-
-      .about-body {
-        font-family: 'IBM Plex Mono', monospace;
-        font-size: 10px;
-        letter-spacing: 1px;
-        line-height: 2.1;
-        text-transform: uppercase;
-        color: var(--muted);
-        margin-bottom: 20px;
-      }
-
-      .chips {
-        display: flex;
-        gap: 6px;
-        flex-wrap: wrap;
-        margin-bottom: 16px;
-      }
-
-      .chip {
-        font-family: 'IBM Plex Mono', monospace;
-        font-size: 9px;
-        font-weight: 700;
-        letter-spacing: 1px;
-        text-transform: uppercase;
-        padding: 5px 13px;
-        border-radius: 99px;
-        border: 1px solid var(--rule);
-        color: var(--mid);
-      }
-
-      .chip-mint {
-        background: var(--mint-light);
-        border-color: var(--mint-mid);
-        color: var(--mint);
-      }
-
-      .chip-pink {
-        background: var(--pink-light);
-        border-color: var(--pink-mid);
-        color: var(--pink);
-      }
-
-      .cv-link {
-        font-family: 'IBM Plex Mono', monospace;
-        font-size: 10px;
-        font-weight: 700;
-        letter-spacing: 2px;
-        text-transform: uppercase;
-        color: var(--pink);
-        text-decoration: none;
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-        transition: opacity 0.15s;
-      }
-
-      .cv-link:hover {
-        opacity: 0.7;
-      }
-
-      .contact-block {
-        padding: 36px;
-      }
-
-      .contact-h {
-        font-size: 48px;
-        font-weight: 900;
-        letter-spacing: -1.5px;
-        color: var(--ink);
-        line-height: 0.88;
-        margin-bottom: 24px;
-      }
-
-      .contact-h .mint {
-        color: var(--mint);
-      }
-
-      .clinks {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-      }
-
-      .clink {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 13px 18px;
-        border: 1px solid var(--rule);
-        border-radius: 8px;
-        text-decoration: none;
-        background: var(--white);
-        transition: border-color 0.15s, background 0.15s;
-      }
-
-      .clink:hover {
-        border-color: var(--pink);
-        background: var(--pink-light);
-      }
-
-      .clink-name {
-        font-size: 18px;
-        font-weight: 700;
-        color: var(--ink);
-      }
-
-      .clink-handle {
-        font-family: 'IBM Plex Mono', monospace;
-        font-size: 9px;
-        letter-spacing: 1px;
-        color: var(--muted);
-      }
-
-      .clink-arr {
-        font-size: 20px;
-        color: var(--pink);
-        font-weight: 900;
-      }
-
-      footer {
-        padding: 18px 36px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        border-top: 1px solid var(--rule);
-      }
-
-      .footer-copy {
-        font-family: 'IBM Plex Mono', monospace;
-        font-size: 10px;
-        letter-spacing: 2px;
-        text-transform: uppercase;
-        color: var(--muted);
-      }
-
-      .footer-dots {
-        display: flex;
-        gap: 6px;
-      }
-
-      .fd {
-        width: 8px;
-        height: 8px;
-        border-radius: 50%;
-      }
-
-      .lightbox {
-        position: fixed;
-        inset: 0;
-        z-index: 9000;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 40px;
-        background: rgba(17, 17, 17, 0);
-        opacity: 0;
-        pointer-events: none;
-        transition: opacity 0.22s ease, background 0.22s ease;
-      }
-
-      .lightbox.active {
-        opacity: 1;
-        pointer-events: auto;
-        background: rgba(17, 17, 17, 0.95);
-      }
-
-      .lb-inner {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 16px;
-        animation: lbPop 0.28s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-      }
-
-      @keyframes lbPop {
-        from {
-          opacity: 0;
-          transform: scale(0.9) translateY(16px);
-        }
-
-        to {
-          opacity: 1;
-          transform: none;
-        }
-      }
-
-      .lb-img {
-        max-width: 90vw;
-        max-height: 80vh;
-        object-fit: contain;
-        display: block;
-        border: 2px solid rgba(255, 255, 255, 0.15);
-      }
-
-      .lb-caption {
-        font-family: 'Bricolage Grotesque', sans-serif;
-        font-size: 16px;
-        font-weight: 700;
-        letter-spacing: 1px;
-        color: #fff;
-        text-align: center;
-      }
-
-      .lb-hint {
-        font-family: 'IBM Plex Mono', monospace;
-        font-size: 9px;
-        letter-spacing: 2px;
-        text-transform: uppercase;
-        color: rgba(255, 255, 255, 0.3);
-      }
-
-      .lb-close {
-        position: absolute;
-        top: 20px;
-        right: 28px;
-        font-family: 'IBM Plex Mono', monospace;
-        font-size: 11px;
-        font-weight: 700;
-        letter-spacing: 2px;
-        text-transform: uppercase;
-        color: var(--pink);
-        background: none;
-        border: none;
-        cursor: pointer;
-        transition: opacity 0.15s;
-      }
-
-      .lb-close:hover {
-        opacity: 0.7;
-      }
-
-      .modal {
-        display: none;
-        position: fixed;
-        inset: 0;
-        z-index: 8000;
-        background: rgba(17, 17, 17, 0.92);
-        overflow-y: auto;
-      }
-
-      .modal.active {
-        display: block;
-      }
-
-      .modal-box {
-        max-width: 900px;
-        margin: 60px auto;
-        background: var(--white);
-        border: 1px solid var(--rule);
-        border-radius: 4px;
-        overflow: hidden;
-        animation: lbPop 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
-      }
-
-      .modal-bar {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 12px 22px;
-        background: var(--ink);
-      }
-
-      .modal-bar-title {
-        font-family: 'IBM Plex Mono', monospace;
-        font-size: 10px;
-        font-weight: 700;
-        letter-spacing: 3px;
-        text-transform: uppercase;
-        color: #fff;
-      }
-
-      .modal-close {
-        font-family: 'IBM Plex Mono', monospace;
-        font-size: 10px;
-        font-weight: 700;
-        letter-spacing: 2px;
-        text-transform: uppercase;
-        color: var(--pink);
-        background: none;
-        border: none;
-        cursor: pointer;
-      }
-
-      .modal-inner {
-        display: flex;
-      }
-
-      .modal-img-wrap {
-        flex: 1;
-        border-right: 1px solid var(--rule);
-      }
-
-      .modal-img {
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
-        display: block;
-        background: var(--soft);
-      }
-
-      .modal-content {
-        flex: 1;
-        padding: 32px;
-      }
-
-      .modal-title {
-        font-size: 28px;
-        font-weight: 900;
-        letter-spacing: -0.5px;
-        color: var(--ink);
-        margin-bottom: 6px;
-      }
-
-      .modal-meta {
-        font-family: 'IBM Plex Mono', monospace;
-        font-size: 9px;
-        font-weight: 700;
-        letter-spacing: 2px;
-        text-transform: uppercase;
-        color: var(--muted);
-        margin-bottom: 18px;
-        padding-bottom: 16px;
-        border-bottom: 1px solid var(--rule);
-      }
-
-      .modal-desc {
-        font-family: 'IBM Plex Mono', monospace;
-        font-size: 10px;
-        letter-spacing: 1px;
-        line-height: 2;
-        color: var(--mid);
-        text-transform: uppercase;
-      }
-
-      .reveal {
-        opacity: 0;
-        transform: translateY(20px);
-        transition: opacity 0.55s ease, transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
-      }
-
-      .reveal.visible {
-        opacity: 1;
-        transform: none;
-      }
-
-      @media (max-width: 768px) {
-        .stripe {
-          display: none;
-        }
-
-        nav {
-          padding: 14px 20px;
-          flex-wrap: wrap;
-          gap: 8px;
-        }
-
-        .nav-sub {
-          display: none;
-        }
-
-        .hero {
-          padding: 40px 20px 32px;
-        }
-
-        .hero-h1 {
-          font-size: 56px;
-          letter-spacing: -2px;
-        }
-
-        .section-head {
-          padding: 12px 20px;
-        }
-
-        .featured {
-          grid-template-columns: 1fr;
-        }
-
-        .feat-media {
-          border-right: none;
-          border-bottom: 1px solid var(--rule);
-        }
-
-        .feat-info {
-          padding: 24px 20px;
-        }
-
-        .thumb-strip {
-          padding: 14px 20px;
-        }
-
-        .proj-grid {
-          grid-template-columns: 1fr;
-        }
-
-        .proj-cell {
-          border-right: none;
-          border-bottom: 1px solid var(--rule);
-        }
-
-        .bottom-grid {
-          grid-template-columns: 1fr;
-        }
-
-        .about-block {
-          border-right: none;
-          border-bottom: 1px solid var(--rule);
-          padding: 28px 20px;
-        }
-
-        .contact-block {
-          padding: 28px 20px;
-        }
-
-        footer {
-          padding: 16px 20px;
-          flex-direction: column;
-          gap: 12px;
-          align-items: flex-start;
-        }
-
-        .modal-inner {
-          flex-direction: column;
-        }
-
-        .modal-img-wrap {
-          border-right: none;
-          border-bottom: 1px solid var(--rule);
-        }
-
-        .modal-box {
-          margin: 16px;
-        }
-      }
-    </style>
-  </head>
-  <body>
-
-    <div class="cursor" id="cursor"></div>
-
-    <div class="page">
-      <div class="stripe"></div>
-      <div class="main">
-
-        <!-- NAV -->
-        <nav>
-          <div class="nav-left">
-            <span class="nav-name">Bhoomika Narayanan</span>
-            <span class="nav-sub">GBDA · Waterloo</span>
-            <span class="nav-dot"></span>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bhoomika Narayanan — Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,700;12..96,900&family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --white:      #ffffff;
+      --soft:       #f8f8f8;
+      --mint:       #2ecc8e;
+      --mint-light: #edfaf4;
+      --mint-mid:   rgba(46,204,142,0.3);
+      --pink:       #e8457a;
+      --pink-light: #fdf0f4;
+      --pink-mid:   rgba(232,69,122,0.3);
+      --ink:        #111111;
+      --mid:        #555555;
+      --muted:      #aaaaaa;
+      --rule:       rgba(0,0,0,0.09);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--white); font-family: 'Bricolage Grotesque', sans-serif; color: var(--ink); overflow-x: hidden; }
+
+    .cursor { width: 16px; height: 16px; border: 2px solid var(--pink); border-radius: 50%; position: fixed; pointer-events: none; z-index: 9999; transform: translate(-50%, -50%); transition: transform 0.1s ease, background 0.2s ease; mix-blend-mode: multiply; }
+    .cursor.clicked { transform: translate(-50%, -50%) scale(0.6); background: var(--pink); }
+    @media (hover: none) { .cursor { display: none; } }
+
+    .page { display: flex; min-height: 100vh; }
+    .stripe { width: 6px; flex-shrink: 0; background: var(--pink); position: sticky; top: 0; height: 100vh; align-self: flex-start; }
+    .main { flex: 1; min-width: 0; }
+
+    nav { display: flex; align-items: center; justify-content: space-between; padding: 18px 36px; border-bottom: 1px solid var(--rule); position: sticky; top: 0; z-index: 100; background: rgba(255,255,255,0.95); backdrop-filter: blur(8px); }
+    .nav-left { display: flex; align-items: center; }
+    .nav-name { font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--ink); }
+    .nav-sub { font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-left: 10px; }
+    .nav-dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: var(--mint); margin-left: 8px; vertical-align: middle; }
+    .nav-links { display: flex; gap: 0; align-items: center; }
+    .nav-links a { font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); text-decoration: none; padding: 6px 18px; transition: color 0.15s; }
+    .nav-links a:hover { color: var(--ink); }
+    .nav-cv { font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--pink); text-decoration: none; padding: 6px 0 6px 18px; transition: opacity 0.15s; }
+    .nav-cv:hover { opacity: 0.7; }
+
+    .hero { padding: 60px 36px 48px; border-bottom: 1px solid var(--rule); }
+    .hero-kicker { font-family: 'Instrument Serif', serif; font-style: italic; font-size: 22px; color: var(--muted); display: block; margin-bottom: 4px; transform: rotate(-1.5deg); transform-origin: left; }
+    .hero-h1 { font-family: 'Bricolage Grotesque', sans-serif; font-size: clamp(60px, 10vw, 96px); font-weight: 900; line-height: 0.87; letter-spacing: -3px; color: var(--ink); margin-bottom: 32px; }
+    .hero-h1 .mint { color: var(--mint); }
+    .hero-h1 .ghost { color: transparent; -webkit-text-stroke: 2.5px var(--ink); }
+    .hero-bottom { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+    .hero-sub { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 1.5px; line-height: 2.2; text-transform: uppercase; color: var(--muted); }
+    .hero-tags { display: flex; gap: 8px; flex-wrap: wrap; }
+    .tag { font-family: 'IBM Plex Mono', monospace; font-size: 9px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 5px 14px; border-radius: 99px; border: 1px solid var(--rule); color: var(--mid); background: var(--white); transition: border-color 0.15s; }
+    .tag:hover { border-color: var(--ink); }
+    .tag-mint { background: var(--mint-light); border-color: var(--mint-mid); color: var(--mint); }
+    .tag-pink { background: var(--pink-light); border-color: var(--pink-mid); color: var(--pink); }
+
+    .section-head { display: flex; align-items: center; justify-content: space-between; padding: 14px 36px; border-bottom: 1px solid var(--rule); }
+    .section-label { font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 700; letter-spacing: 4px; text-transform: uppercase; color: var(--ink); }
+    .section-count { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 2px; color: var(--muted); }
+
+    .featured { display: grid; grid-template-columns: 1.4fr 1fr; border-bottom: 1px solid var(--rule); }
+    .feat-media { border-right: 1px solid var(--rule); background: var(--mint-light); position: relative; overflow: hidden; }
+    .feat-media iframe { display: block; width: 100%; height: 100%; min-height: 360px; border: none; }
+    .feat-badge { position: absolute; top: 14px; left: 14px; z-index: 2; background: var(--pink); color: #fff; font-family: 'IBM Plex Mono', monospace; font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 4px 12px; border-radius: 99px; }
+    .feat-img-static { width: 100%; height: 100%; min-height: 360px; object-fit: cover; object-position: top; display: block; }
+    .feat-info { padding: 32px 28px; display: flex; flex-direction: column; justify-content: space-between; }
+    .feat-num { font-family: 'IBM Plex Mono', monospace; font-size: 9px; font-weight: 700; letter-spacing: 2px; color: var(--pink); margin-bottom: 10px; }
+    .feat-title { font-size: 28px; font-weight: 900; letter-spacing: -0.5px; color: var(--ink); line-height: 1; margin-bottom: 8px; }
+    .feat-meta { font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; }
+    .feat-desc { font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: 1px; line-height: 2; text-transform: uppercase; color: var(--muted); margin-bottom: 16px; }
+    .feat-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 24px; }
+    .feat-arrow { font-size: 32px; color: var(--mint); font-weight: 900; text-decoration: none; display: inline-block; transition: transform 0.2s ease; }
+    .feat-arrow:hover { transform: translateX(6px); }
+
+    .thumb-strip { border-top: 1px solid var(--rule); padding: 16px 28px; }
+    .thumb-strip-label { font-family: 'IBM Plex Mono', monospace; font-size: 9px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
+    .thumbs { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 4px; }
+    .thumbs::-webkit-scrollbar { height: 3px; }
+    .thumbs::-webkit-scrollbar-thumb { background: var(--pink); }
+    .thumb { flex: 0 0 100px; border: 1px solid var(--rule); background: var(--soft); cursor: pointer; transition: border-color 0.15s, transform 0.15s; }
+    .thumb:hover { border-color: var(--pink); transform: translateY(-2px); }
+    .thumb img { width: 100%; height: 60px; object-fit: cover; object-position: top; display: block; }
+    .thumb-label { font-family: 'Bricolage Grotesque', sans-serif; font-size: 11px; font-weight: 700; color: var(--ink); padding: 5px 8px; display: block; border-top: 1px solid var(--rule); }
+
+    .proj-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; border-bottom: 1px solid var(--rule); }
+    .proj-cell { border-right: 1px solid var(--rule); cursor: pointer; transition: background 0.15s; }
+    .proj-cell:last-child { border-right: none; }
+    .proj-cell:hover { background: var(--soft); }
+    .proj-img { width: 100%; aspect-ratio: 3/2; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+    .proj-img img { width: 100%; height: 100%; object-fit: contain; display: block; transition: transform 0.4s ease; }
+    .proj-cell:hover .proj-img img { transform: scale(1.04); }
+    .bg-pink  { background: var(--pink-light); }
+    .bg-soft  { background: var(--soft); }
+    .bg-mint  { background: var(--mint-light); }
+    .bg-dark  { background: #1a1a1a; }
+    .bg-blue  { background: #e8f0ff; }
+    .proj-foot { padding: 12px 18px; border-top: 1px solid var(--rule); display: flex; justify-content: space-between; align-items: flex-end; }
+    .proj-num { font-family: 'IBM Plex Mono', monospace; font-size: 9px; font-weight: 700; letter-spacing: 2px; color: var(--muted); margin-bottom: 4px; }
+    .proj-title { font-size: 17px; font-weight: 700; color: var(--ink); }
+    .proj-meta { font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); margin-top: 2px; }
+    .proj-arrow { font-size: 20px; color: var(--mint); font-weight: 900; opacity: 0; transition: opacity 0.2s; }
+    .proj-cell:hover .proj-arrow { opacity: 1; }
+
+    .bottom-grid { display: grid; grid-template-columns: 1fr 1fr; border-bottom: 1px solid var(--rule); }
+    .about-block { padding: 36px; border-right: 1px solid var(--rule); }
+    .about-h { font-size: 48px; font-weight: 900; letter-spacing: -1.5px; color: var(--ink); line-height: 0.88; margin-bottom: 20px; }
+    .about-h .pink { color: var(--pink); }
+    .about-body { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 1px; line-height: 2.1; text-transform: uppercase; color: var(--muted); margin-bottom: 20px; }
+    .chips { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 16px; }
+    .chip { font-family: 'IBM Plex Mono', monospace; font-size: 9px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 5px 13px; border-radius: 99px; border: 1px solid var(--rule); color: var(--mid); }
+    .chip-mint { background: var(--mint-light); border-color: var(--mint-mid); color: var(--mint); }
+    .chip-pink { background: var(--pink-light); border-color: var(--pink-mid); color: var(--pink); }
+    .cv-link { font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--pink); text-decoration: none; display: inline-flex; align-items: center; gap: 6px; transition: opacity 0.15s; }
+    .cv-link:hover { opacity: 0.7; }
+
+    .contact-block { padding: 36px; }
+    .contact-h { font-size: 48px; font-weight: 900; letter-spacing: -1.5px; color: var(--ink); line-height: 0.88; margin-bottom: 24px; }
+    .contact-h .mint { color: var(--mint); }
+    .clinks { display: flex; flex-direction: column; gap: 10px; }
+    .clink { display: flex; align-items: center; justify-content: space-between; padding: 13px 18px; border: 1px solid var(--rule); border-radius: 8px; text-decoration: none; background: var(--white); transition: border-color 0.15s, background 0.15s; }
+    .clink:hover { border-color: var(--pink); background: var(--pink-light); }
+    .clink-name { font-size: 18px; font-weight: 700; color: var(--ink); }
+    .clink-handle { font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: 1px; color: var(--muted); }
+    .clink-arr { font-size: 20px; color: var(--pink); font-weight: 900; }
+
+    footer { padding: 18px 36px; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--rule); }
+    .footer-copy { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); }
+    .footer-dots { display: flex; gap: 6px; }
+    .fd { width: 8px; height: 8px; border-radius: 50%; }
+
+    .lightbox { position: fixed; inset: 0; z-index: 9000; display: flex; align-items: center; justify-content: center; padding: 40px; background: rgba(17,17,17,0); opacity: 0; pointer-events: none; transition: opacity 0.22s ease, background 0.22s ease; }
+    .lightbox.active { opacity: 1; pointer-events: auto; background: rgba(17,17,17,0.95); }
+    .lb-inner { display: flex; flex-direction: column; align-items: center; gap: 16px; animation: lbPop 0.28s cubic-bezier(0.34,1.56,0.64,1) forwards; }
+    @keyframes lbPop { from { opacity: 0; transform: scale(0.9) translateY(16px); } to { opacity: 1; transform: none; } }
+    .lb-img { max-width: 90vw; max-height: 80vh; object-fit: contain; display: block; border: 2px solid rgba(255,255,255,0.15); }
+    .lb-caption { font-family: 'Bricolage Grotesque', sans-serif; font-size: 16px; font-weight: 700; letter-spacing: 1px; color: #fff; text-align: center; }
+    .lb-hint { font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.3); }
+    .lb-close { position: absolute; top: 20px; right: 28px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--pink); background: none; border: none; cursor: pointer; transition: opacity 0.15s; }
+    .lb-close:hover { opacity: 0.7; }
+
+    .modal { display: none; position: fixed; inset: 0; z-index: 8000; background: rgba(17,17,17,0.92); overflow-y: auto; }
+    .modal.active { display: block; }
+    .modal-box { max-width: 900px; margin: 60px auto; background: var(--white); border: 1px solid var(--rule); border-radius: 4px; overflow: hidden; animation: lbPop 0.25s cubic-bezier(0.34,1.56,0.64,1); }
+    .modal-bar { display: flex; align-items: center; justify-content: space-between; padding: 12px 22px; background: var(--ink); }
+    .modal-bar-title { font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: #fff; }
+    .modal-close { font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--pink); background: none; border: none; cursor: pointer; }
+    .modal-inner { display: flex; }
+    .modal-img-wrap { flex: 1; border-right: 1px solid var(--rule); }
+    .modal-img { width: 100%; height: 100%; object-fit: contain; display: block; background: var(--soft); }
+    .modal-content { flex: 1; padding: 32px; }
+    .modal-title { font-size: 28px; font-weight: 900; letter-spacing: -0.5px; color: var(--ink); margin-bottom: 6px; }
+    .modal-meta { font-family: 'IBM Plex Mono', monospace; font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 18px; padding-bottom: 16px; border-bottom: 1px solid var(--rule); }
+    .modal-desc { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 1px; line-height: 2; color: var(--mid); text-transform: uppercase; }
+
+    .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.55s ease, transform 0.55s cubic-bezier(0.16,1,0.3,1); }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    /* slideshow */
+    .slideshow { background: #111; border-top: 1px solid var(--rule); }
+    .slide { display: none; width: 100%; max-height: 420px; object-fit: contain; }
+    .slide.active { display: block; }
+    .slide-controls { display: flex; align-items: center; justify-content: center; gap: 24px; padding: 14px 24px; background: var(--white); border-top: 1px solid var(--rule); }
+    .slide-btn { width: 36px; height: 36px; border-radius: 50%; border: 1px solid var(--rule); background: none; font-size: 16px; font-weight: 900; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.15s, border-color 0.15s, color 0.15s; }
+    .slide-btn:hover { background: var(--pink); border-color: var(--pink); color: #fff; }
+    .slide-counter { font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--muted); min-width: 40px; text-align: center; }
+
+    @media (max-width: 768px) {
+      .stripe { display: none; }
+      nav { padding: 14px 20px; flex-wrap: wrap; gap: 8px; }
+      .nav-sub { display: none; }
+      .hero { padding: 40px 20px 32px; }
+      .hero-h1 { font-size: 56px; letter-spacing: -2px; }
+      .section-head { padding: 12px 20px; }
+      .featured { grid-template-columns: 1fr; }
+      .feat-media { border-right: none; border-bottom: 1px solid var(--rule); }
+      .feat-info { padding: 24px 20px; }
+      .thumb-strip { padding: 14px 20px; }
+      .proj-grid { grid-template-columns: 1fr; }
+      .proj-cell { border-right: none; border-bottom: 1px solid var(--rule); }
+      .bottom-grid { grid-template-columns: 1fr; }
+      .about-block { border-right: none; border-bottom: 1px solid var(--rule); padding: 28px 20px; }
+      .contact-block { padding: 28px 20px; }
+      footer { padding: 16px 20px; flex-direction: column; gap: 12px; align-items: flex-start; }
+      .modal-inner { flex-direction: column; }
+      .modal-img-wrap { border-right: none; border-bottom: 1px solid var(--rule); }
+      .modal-box { margin: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="cursor" id="cursor"></div>
+
+  <div class="page">
+    <div class="stripe"></div>
+    <div class="main">
+
+      <!-- NAV -->
+      <nav>
+        <div class="nav-left">
+          <span class="nav-name">Bhoomika Narayanan</span>
+          <span class="nav-sub">GBDA · Waterloo</span>
+          <span class="nav-dot"></span>
+        </div>
+        <div class="nav-links">
+          <a href="#work">Work</a>
+          <a href="#about">About</a>
+          <a href="#contact">Contact</a>
+          <a href="CV_Bhoomika_Narayanan.pdf" target="_blank" class="nav-cv">CV ↗</a>
+        </div>
+      </nav>
+
+      <!-- HERO -->
+      <section class="hero reveal">
+        <span class="hero-kicker">welcome to my</span>
+        <h1 class="hero-h1">port<span class="mint">fo</span><span class="ghost">lio</span></h1>
+        <div class="hero-bottom">
+          <div class="hero-sub">
+            Bold · Intentional · Always learning<br>
+            Currently: JS + Digital Illustration
           </div>
-          <div class="nav-links">
-            <a href="#work">Work</a>
-            <a href="#about">About</a>
-            <a href="#contact">Contact</a>
-            <a href="CV_Bhoomika_Narayanan.pdf" target="_blank" class="nav-cv">CV ↗</a>
+          <div class="hero-tags">
+            <span class="tag tag-mint">Graphic Design</span>
+            <span class="tag tag-pink">Art Direction</span>
+            <span class="tag">Toronto</span>
           </div>
-        </nav>
+        </div>
+      </section>
 
-        <!-- HERO -->
-        <section class="hero reveal">
-          <span class="hero-kicker">welcome to my</span>
-          <h1 class="hero-h1">port<span class="mint">fo</span><span class="ghost">lio</span></h1>
-          <div class="hero-bottom">
-            <div class="hero-sub">
-              Bold · Intentional · Always learning<br>
-              Currently: JS + Digital Illustration
-            </div>
-            <div class="hero-tags">
-              <span class="tag tag-mint">Graphic Design</span>
-              <span class="tag tag-pink">Art Direction</span>
-              <span class="tag">Toronto</span>
-            </div>
-          </div>
-        </section>
+      <!-- WORK -->
+      <div id="work">
 
-        <!-- WORK -->
-        <div id="work">
-
-          <div class="section-head reveal">
-            <span class="section-label">Selected Work</span>
-            <span class="section-count">07 Projects · 2024–2025</span>
-          </div>
-
-          <!-- 01: HAMMER SKATE -->
-          <div class="featured reveal">
-            <div class="feat-media">
-              <span class="feat-badge">Featured</span>
-              <iframe src="https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fproto%2FPxdi9zFawD6lYH2uMAIuWL%2FHammer-Skateboard-Mockup%3Fnode-id%3D0-1%26t%3DaW7Y2wJYY0p9EOzA-1" allowfullscreen loading="lazy"></iframe>
-            </div>
-            <div class="feat-info">
-              <div>
-                <div class="feat-num">01 / Web Design Class</div>
-                <div class="feat-title">Hammer Skateboard</div>
-                <div class="feat-meta">Figma · Web Redesign · 2025</div>
-                <p class="feat-desc">A redesign of Hammer Toronto, an independent skater-owned shop that has been serving Toronto for over 21 years. The original site looked like a default Shopify template with no personality, bad contrast, and cluttered navigation. I redesigned it with a bold black and orange identity, simplified navigation, and proper product filtering to make it feel like a real skate shop.</p>
-                <div class="feat-tags">
-                  <span class="tag tag-mint" style="font-size:8px;padding:3px 10px">Prototype</span>
-                  <span class="tag" style="font-size:8px;padding:3px 10px">Web Design</span>
-                  <span class="tag" style="font-size:8px;padding:3px 10px">Toronto</span>
-                </div>
-              </div>
-              <a href="https://www.figma.com/proto/Pxdi9zFawD6lYH2uMAIuWL/Hammer-Skateboard-Mockup?node-id=0-1&t=aW7Y2wJYY0p9EOzA-1" target="_blank" class="feat-arrow">↗</a>
-            </div>
-          </div>
-          <div class="thumb-strip reveal">
-            <div class="thumb-strip-label">// pages — click to enlarge</div>
-            <div class="thumbs">
-              <div class="thumb" onclick="openLightbox('Desktop - 1.png','Home')"><img src="Desktop - 1.png" alt="Home"><span class="thumb-label">Home</span></div>
-              <div class="thumb" onclick="openLightbox('Desktop - 2.png','Decks')"><img src="Desktop - 2.png" alt="Decks"><span class="thumb-label">Decks</span></div>
-              <div class="thumb" onclick="openLightbox('Desktop - 3.png','Wheels')"><img src="Desktop - 3.png" alt="Wheels"><span class="thumb-label">Wheels</span></div>
-              <div class="thumb" onclick="openLightbox('Desktop - 4.png','Product')"><img src="Desktop - 4.png" alt="Product"><span class="thumb-label">Product</span></div>
-            </div>
-          </div>
-
-          <!-- 02: ART OF TEA -->
-          <div class="featured reveal" style="border-top:1px solid var(--rule)">
-            <div class="feat-media" style="background:var(--pink-light)">
-              <span class="feat-badge">02</span>
-              <iframe src="https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fproto%2Fm6h73zIHFKYfeoCHBi8hzG%2FNarayanan_Bhoomika_High-resolution-mockup%3Ft%3DaW7Y2wJYY0p9EOzA-1" allowfullscreen loading="lazy"></iframe>
-            </div>
-            <div class="feat-info">
-              <div>
-                <div class="feat-num">02 / Web Design Final</div>
-                <div class="feat-title">The Art of Tea</div>
-                <div class="feat-meta">Figma + HTML/CSS · Web Design · 2025</div>
-                <p class="feat-desc">A final project for my Web Design class where I had full creative freedom to build any website I wanted. I chose tea because I genuinely love it. The vibe I was going for was simple, elegant, and minimal, kind of like the process of making tea itself. The site covers tea methods, history, and philosophy, designed in Figma and coded from scratch in HTML and CSS.</p>
-                <div class="feat-tags">
-                  <span class="tag tag-pink" style="font-size:8px;padding:3px 10px">Live Site</span>
-                  <span class="tag" style="font-size:8px;padding:3px 10px">HTML/CSS</span>
-                  <span class="tag" style="font-size:8px;padding:3px 10px">Self-directed</span>
-                </div>
-              </div>
-              <a href="https://bumi180.github.io/Final-Project-Website/" target="_blank" class="feat-arrow">↗</a>
-            </div>
-          </div>
-          <div class="thumb-strip reveal">
-            <div class="thumb-strip-label">// pages — click to enlarge</div>
-            <div class="thumbs">
-              <div class="thumb" onclick="openLightbox('Home Page.png','Home')"><img src="Home Page.png" alt="Home"><span class="thumb-label">Home</span></div>
-              <div class="thumb" onclick="openLightbox('Ayurveda.png','Ayurveda')"><img src="Ayurveda.png" alt="Ayurveda"><span class="thumb-label">Ayurveda</span></div>
-              <div class="thumb" onclick="openLightbox('Tea Basics.png','Tea Basics')"><img src="Tea Basics.png" alt="Tea Basics"><span class="thumb-label">Tea Basics</span></div>
-              <div class="thumb" onclick="openLightbox('Blendiing philosophy.png','Blending Philosophy')"><img src="Blendiing philosophy.png" alt="Blending"><span class="thumb-label">Blending</span></div>
-            </div>
-          </div>
-
-          <!-- 03: DESIGN JAM -->
-          <div class="featured reveal" style="border-top:1px solid var(--rule)">
-            <div class="feat-media" style="background:var(--bg-blue,#e8f0ff)">
-              <span class="feat-badge" style="background:var(--mint)">03</span>
-              <iframe src="https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fproto%2FJPkUPVAvQyKYBnehsLmkGa%2FWireframes-for-walkthrough-and-bot%3Fnode-id%3D0-1%26t%3DIs35IyIoG062bgdL-1" allowfullscreen loading="lazy"></iframe>
-            </div>
-            <div class="feat-info">
-              <div>
-                <div class="feat-num">03 / Stratford Design Jam</div>
-                <div class="feat-title">Client Onboarding UX</div>
-                <div class="feat-meta">Figma · UX/UI · 2025</div>
-                <p class="feat-desc">A competitive design sprint at the Stratford School Design Jam. Working under time pressure, I collaborated to design high-fidelity user onboarding flows and interactive wireframes in Figma, then delivered a 3-minute professional pitch to a panel of judges. The brief focused on improving the client onboarding experience — mapping pain points, defining the journey, and designing a cleaner post-bind communication flow.</p>
-                <div class="feat-tags">
-                  <span class="tag tag-mint" style="font-size:8px;padding:3px 10px">UX/UI</span>
-                  <span class="tag" style="font-size:8px;padding:3px 10px">Wireframes</span>
-                  <span class="tag" style="font-size:8px;padding:3px 10px">Competition</span>
-                </div>
-              </div>
-              <a href="https://www.figma.com/proto/JPkUPVAvQyKYBnehsLmkGa/Wireframes-for-walkthrough-and-bot?node-id=0-1&t=Is35IyIoG062bgdL-1" target="_blank" class="feat-arrow">↗</a>
-            </div>
-          </div>
-
-          <!-- 04: SUNRISE RECORDS -->
-          <div class="featured reveal" style="border-top:1px solid var(--rule)">
-            <div class="feat-media" style="background:#1a1a1a">
-              <span class="feat-badge">04</span>
-              <img src="sunrise-01.jpg" alt="Sunrise Records" class="feat-img-static">
-            </div>
-            <div class="feat-info">
-              <div>
-                <div class="feat-num">04 / Digital Media 2 · GBDA202</div>
-                <div class="feat-title">Sunrise Records</div>
-                <div class="feat-meta">Brand Analysis · Visual Research · 2025</div>
-                <p class="feat-desc">A visual brand analysis comparing Sunrise Records and Spotify for my GBDA202 class. The project explores two brands that compete in music discovery from completely different angles — one physical and nostalgic, one digital and algorithmic. I researched brand heritage, demographics, visual identity, consumer experience, and competitive positioning across a 15-page deck.</p>
-                <div class="feat-tags">
-                  <span class="tag tag-pink" style="font-size:8px;padding:3px 10px">Branding</span>
-                  <span class="tag" style="font-size:8px;padding:3px 10px">Visual Research</span>
-                  <span class="tag" style="font-size:8px;padding:3px 10px">Toronto</span>
-                </div>
-              </div>
-              <span class="feat-arrow" style="cursor:default">↓</span>
-            </div>
-          </div>
-          <div class="thumb-strip reveal">
-            <div class="thumb-strip-label">// selected slides — click to enlarge</div>
-            <div class="thumbs">
-              <div class="thumb" onclick="openLightbox('sunrise-01.jpg','Title')"><img src="sunrise-01.jpg" alt="Title"><span class="thumb-label">Title</span></div>
-              <div class="thumb" onclick="openLightbox('sunrise-02.jpg','Brand Heritage')"><img src="sunrise-02.jpg" alt="Brand Heritage"><span class="thumb-label">Heritage</span></div>
-              <div class="thumb" onclick="openLightbox('sunrise-07.jpg','Visual Research')"><img src="sunrise-07.jpg" alt="Visual Research"><span class="thumb-label">Visual</span></div>
-              <div class="thumb" onclick="openLightbox('sunrise-11.jpg','Competition')"><img src="sunrise-11.jpg" alt="Competition"><span class="thumb-label">Competition</span></div>
-              <div class="thumb" onclick="openLightbox('sunrise-14.jpg','Branding')"><img src="sunrise-14.jpg" alt="Branding"><span class="thumb-label">Branding</span></div>
-              <div class="thumb" onclick="openLightbox('sunrise-15.jpg','Consumer Experience')"><img src="sunrise-15.jpg" alt="Consumer Experience"><span class="thumb-label">Consumer</span></div>
-            </div>
-          </div>
-
-          <!-- 05: VICARAM -->
-          <div class="featured reveal" style="border-top:1px solid var(--rule)">
-            <div class="feat-media" style="background:#0d0d1a">
-              <span class="feat-badge" style="background:var(--mint)">05</span>
-              <img src="vicaram-dhruva.png" alt="Vicaram — Dhruva and Brahman" class="feat-img-static" style="object-position:center">
-            </div>
-            <div class="feat-info">
-              <div>
-                <div class="feat-num">05 / Professional · Ongoing</div>
-                <div class="feat-title">Vicaram Studio</div>
-                <div class="feat-meta">Adobe Fresco · Illustration · Art Direction · 2024–Present</div>
-                <p class="feat-desc">A collaborative creative project reimagining Hindu sacred storytelling for contemporary audiences. Vicaram is currently live as an audio podcast on Spotify with a YouTube channel launching soon. My role involves consulting on colour palettes, visual themes, and art direction, alongside creating digital illustrations in Adobe Fresco for video and audiobook content in production.</p>
-                <div class="feat-tags">
-                  <span class="tag tag-mint" style="font-size:8px;padding:3px 10px">Illustration</span>
-                  <span class="tag" style="font-size:8px;padding:3px 10px">Art Direction</span>
-                  <span class="tag tag-pink" style="font-size:8px;padding:3px 10px">Ongoing</span>
-                </div>
-              </div>
-              <a href="https://www.youtube.com/@vicara-studio" target="_blank" class="feat-arrow">↗</a>
-            </div>
-          </div>
-          <div class="thumb-strip reveal">
-            <div class="thumb-strip-label">// illustrations — click to enlarge</div>
-            <div class="thumbs">
-              <div class="thumb" onclick="openLightbox('vicaram-gold.jpg','Gold')"><img src="vicaram-gold.jpg" alt="Gold"><span class="thumb-label">Gold</span></div>
-              <div class="thumb" onclick="openLightbox('vicaram-dhruva.png','Dhruva and Brahman')"><img src="vicaram-dhruva.png" alt="Dhruva"><span class="thumb-label">Dhruva</span></div>
-              <div class="thumb" onclick="openLightbox('vicaram-lotus.png','Lotus Scene')"><img src="vicaram-lotus.png" alt="Lotus"><span class="thumb-label">Lotus</span></div>
-            </div>
-          </div>
-
-          <!-- SMALL GRID: 06 + 07 -->
-          <div class="proj-grid reveal">
-            <div class="proj-cell" onclick="openModal(0)">
-              <div class="proj-img bg-pink"><img src="Design philosophy.png" alt="Design Philosophy" onerror="this.style.display='none'"></div>
-              <div class="proj-foot">
-                <div>
-                  <div class="proj-num">06</div>
-                  <div class="proj-title">Design Philosophy</div>
-                  <div class="proj-meta">Adobe Illustrator · 2025</div>
-                </div>
-                <div class="proj-arrow">→</div>
-              </div>
-            </div>
-            <div class="proj-cell" onclick="openModal(1)">
-              <div class="proj-img bg-mint"><img src="ELearning poster (1) (1).png" alt="E-learn" onerror="this.style.display='none'"></div>
-              <div class="proj-foot">
-                <div>
-                  <div class="proj-num">07</div>
-                  <div class="proj-title">E-learn Campaign</div>
-                  <div class="proj-meta">Adobe Express · 2025</div>
-                </div>
-                <div class="proj-arrow">→</div>
-              </div>
-            </div>
-            <div class="proj-cell" style="cursor:default;display:flex;align-items:center;justify-content:center;background:var(--soft)">
-              <div style="text-align:center;padding:24px">
-                <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:8px">// more coming</div>
-                <div style="font-size:20px;font-weight:900;color:var(--ink)">Always<br>creating.</div>
-              </div>
-            </div>
-          </div>
-
+        <div class="section-head reveal">
+          <span class="section-label">Selected Work</span>
+          <span class="section-count">07 Projects · 2024–2025</span>
         </div>
 
-        <!-- ABOUT + CONTACT -->
-        <div class="bottom-grid" id="about">
-          <div class="about-block reveal">
-            <div class="about-h">About<br><span class="pink">me.</span></div>
-            <div class="about-body">First year GBDA student at the University of Waterloo. Graphic designer based in Toronto, experimenting with bold typography, digital illustration, and visual storytelling. I work in Adobe Illustrator, Fresco, Express, Figma, and HTML/CSS.</div>
-            <div class="chips">
-              <span class="chip chip-mint">Bricolage Grotesque ♥</span>
-              <span class="chip chip-pink">Learning JS</span>
-              <span class="chip">Figma</span>
-              <span class="chip">Illustrator</span>
-              <span class="chip">Adobe Fresco</span>
-            </div>
-            <a href="CV_Bhoomika_Narayanan.pdf" target="_blank" class="cv-link">View my CV ↗</a>
+        <!-- 01: HAMMER SKATE -->
+        <div class="featured reveal">
+          <div class="feat-media">
+            <span class="feat-badge">Featured</span>
+            <iframe src="https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fproto%2FPxdi9zFawD6lYH2uMAIuWL%2FHammer-Skateboard-Mockup%3Fnode-id%3D0-1%26t%3DaW7Y2wJYY0p9EOzA-1" allowfullscreen loading="lazy"></iframe>
           </div>
-          <div class="contact-block reveal" id="contact" style="transition-delay:0.1s">
-            <div class="contact-h">Let's<br><span class="mint">talk.</span></div>
-            <div class="clinks">
-              <a href="mailto:narayananbn180@gmail.com" class="clink">
-                <div class="clink-name">Email</div>
-                <div class="clink-handle">narayananbn180@gmail.com</div>
-                <div class="clink-arr">↗</div>
-              </a>
-              <a href="https://www.instagram.com/b_mi.art/" target="_blank" class="clink">
-                <div class="clink-name">Instagram</div>
-                <div class="clink-handle">@b_mi.art</div>
-                <div class="clink-arr">↗</div>
-              </a>
-              <a href="https://ca.pinterest.com/Bumi173/" target="_blank" class="clink">
-                <div class="clink-name">Pinterest</div>
-                <div class="clink-handle">Bumi173</div>
-                <div class="clink-arr">↗</div>
-              </a>
+          <div class="feat-info">
+            <div>
+              <div class="feat-num">01 / Web Design Class</div>
+              <div class="feat-title">Hammer Skateboard</div>
+              <div class="feat-meta">Figma · Web Redesign · 2025</div>
+              <p class="feat-desc">A redesign of Hammer Toronto, an independent skater-owned shop that has been serving Toronto for over 21 years. The original site looked like a default Shopify template with no personality, bad contrast, and cluttered navigation. I redesigned it with a bold black and orange identity, simplified navigation, and proper product filtering to make it feel like a real skate shop.</p>
+              <div class="feat-tags">
+                <span class="tag tag-mint" style="font-size:8px;padding:3px 10px">Prototype</span>
+                <span class="tag" style="font-size:8px;padding:3px 10px">Web Design</span>
+                <span class="tag" style="font-size:8px;padding:3px 10px">Toronto</span>
+              </div>
             </div>
+            <a href="https://www.figma.com/proto/Pxdi9zFawD6lYH2uMAIuWL/Hammer-Skateboard-Mockup?node-id=0-1&t=aW7Y2wJYY0p9EOzA-1" target="_blank" class="feat-arrow">↗</a>
+          </div>
+        </div>
+        <div class="thumb-strip reveal">
+          <div class="thumb-strip-label">// pages — click to enlarge</div>
+          <div class="thumbs">
+            <div class="thumb" onclick="openLightbox('Desktop - 1.png','Home')"><img src="Desktop - 1.png" alt="Home"><span class="thumb-label">Home</span></div>
+            <div class="thumb" onclick="openLightbox('Desktop - 2.png','Decks')"><img src="Desktop - 2.png" alt="Decks"><span class="thumb-label">Decks</span></div>
+            <div class="thumb" onclick="openLightbox('Desktop - 3.png','Wheels')"><img src="Desktop - 3.png" alt="Wheels"><span class="thumb-label">Wheels</span></div>
+            <div class="thumb" onclick="openLightbox('Desktop - 4.png','Product')"><img src="Desktop - 4.png" alt="Product"><span class="thumb-label">Product</span></div>
           </div>
         </div>
 
-        <!-- FOOTER -->
-        <footer>
-          <div class="footer-copy">© 2026 Bhoomika Narayanan</div>
-          <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:1px;">GBDA · University of Waterloo · Toronto</div>
-          <div class="footer-dots">
-            <div class="fd" style="background:var(--pink)"></div>
-            <div class="fd" style="background:var(--mint)"></div>
-            <div class="fd" style="background:#ddd"></div>
+        <!-- 02: ART OF TEA -->
+        <div class="featured reveal" style="border-top:1px solid var(--rule)">
+          <div class="feat-media" style="background:var(--pink-light)">
+            <span class="feat-badge">02</span>
+            <iframe src="https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fproto%2Fm6h73zIHFKYfeoCHBi8hzG%2FNarayanan_Bhoomika_High-resolution-mockup%3Ft%3DaW7Y2wJYY0p9EOzA-1" allowfullscreen loading="lazy"></iframe>
           </div>
-        </footer>
+          <div class="feat-info">
+            <div>
+              <div class="feat-num">02 / Web Design Final</div>
+              <div class="feat-title">The Art of Tea</div>
+              <div class="feat-meta">Figma + HTML/CSS · Web Design · 2025</div>
+              <p class="feat-desc">A final project for my Web Design class where I had full creative freedom to build any website I wanted. I chose tea because I genuinely love it. The vibe I was going for was simple, elegant, and minimal, kind of like the process of making tea itself. The site covers tea methods, history, and philosophy, designed in Figma and coded from scratch in HTML and CSS.</p>
+              <div class="feat-tags">
+                <span class="tag tag-pink" style="font-size:8px;padding:3px 10px">Live Site</span>
+                <span class="tag" style="font-size:8px;padding:3px 10px">HTML/CSS</span>
+                <span class="tag" style="font-size:8px;padding:3px 10px">Self-directed</span>
+              </div>
+            </div>
+            <a href="https://bumi180.github.io/Final-Project-Website/" target="_blank" class="feat-arrow">↗</a>
+          </div>
+        </div>
+        <div class="thumb-strip reveal">
+          <div class="thumb-strip-label">// pages — click to enlarge</div>
+          <div class="thumbs">
+            <div class="thumb" onclick="openLightbox('Home Page.png','Home')"><img src="Home Page.png" alt="Home"><span class="thumb-label">Home</span></div>
+            <div class="thumb" onclick="openLightbox('Ayurveda.png','Ayurveda')"><img src="Ayurveda.png" alt="Ayurveda"><span class="thumb-label">Ayurveda</span></div>
+            <div class="thumb" onclick="openLightbox('Tea Basics.png','Tea Basics')"><img src="Tea Basics.png" alt="Tea Basics"><span class="thumb-label">Tea Basics</span></div>
+            <div class="thumb" onclick="openLightbox('Blendiing philosophy.png','Blending Philosophy')"><img src="Blendiing philosophy.png" alt="Blending"><span class="thumb-label">Blending</span></div>
+          </div>
+        </div>
+
+        <!-- 03: DESIGN JAM -->
+        <div class="featured reveal" style="border-top:1px solid var(--rule)">
+          <div class="feat-media" style="background:var(--bg-blue,#e8f0ff)">
+            <span class="feat-badge" style="background:var(--mint)">03</span>
+            <iframe src="https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fproto%2FJPkUPVAvQyKYBnehsLmkGa%2FWireframes-for-walkthrough-and-bot%3Fnode-id%3D0-1%26t%3DIs35IyIoG062bgdL-1" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <div class="feat-info">
+            <div>
+              <div class="feat-num">03 / Stratford Design Jam</div>
+              <div class="feat-title">Client Onboarding UX</div>
+              <div class="feat-meta">Figma · UX/UI · 2025</div>
+              <p class="feat-desc">A competitive design sprint at the Stratford School Design Jam. Working under time pressure, I collaborated to design high-fidelity user onboarding flows and interactive wireframes in Figma, then delivered a 3-minute professional pitch to a panel of judges. The brief focused on improving the client onboarding experience — mapping pain points, defining the journey, and designing a cleaner post-bind communication flow.</p>
+              <div class="feat-tags">
+                <span class="tag tag-mint" style="font-size:8px;padding:3px 10px">UX/UI</span>
+                <span class="tag" style="font-size:8px;padding:3px 10px">Wireframes</span>
+                <span class="tag" style="font-size:8px;padding:3px 10px">Competition</span>
+              </div>
+            </div>
+            <a href="https://www.figma.com/proto/JPkUPVAvQyKYBnehsLmkGa/Wireframes-for-walkthrough-and-bot?node-id=0-1&t=Is35IyIoG062bgdL-1" target="_blank" class="feat-arrow">↗</a>
+          </div>
+        </div>
+
+        <!-- 04: SUNRISE RECORDS -->
+        <!-- SUNRISE SLIDESHOW -->
+        <div class="slideshow reveal" id="sunriseSlideshow">
+          <img class="slide active" src="sunrise-01.jpg" alt="Title">
+          <img class="slide" src="sunrise-02.jpg" alt="Brand Heritage">
+          <img class="slide" src="sunrise-07.jpg" alt="Visual Research">
+          <img class="slide" src="sunrise-11.jpg" alt="Competition">
+          <img class="slide" src="sunrise-14.jpg" alt="Branding">
+          <img class="slide" src="sunrise-15.jpg" alt="Consumer Experience">
+        </div>
+        <div class="slide-controls">
+          <button class="slide-btn" onclick="moveSlide(-1)">←</button>
+          <span class="slide-counter" id="sunriseCounter">1 / 6</span>
+          <button class="slide-btn" onclick="moveSlide(1)">→</button>
+        </div>
+        <div class="thumb-strip reveal">
+          <div style="margin-bottom:12px">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--pink);margin-bottom:4px;">04 / Digital Media 2 · GBDA202</div>
+            <div style="font-size:22px;font-weight:900;letter-spacing:-0.5px;color:var(--ink);">Sunrise Records</div>
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-top:4px;margin-bottom:12px;">Brand Analysis · Visual Research · 2025</div>
+            <p style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:1px;line-height:2;text-transform:uppercase;color:var(--muted);max-width:700px;margin-bottom:12px;">A visual brand analysis comparing Sunrise Records and Spotify for my GBDA202 class. The project explores two brands that compete in music discovery from completely different angles — one physical and nostalgic, one digital and algorithmic. I researched brand heritage, demographics, visual identity, consumer experience, and competitive positioning across a 15-page deck.</p>
+            <div style="display:flex;gap:8px;flex-wrap:wrap;">
+              <span class="tag tag-pink" style="font-size:8px;padding:3px 10px">Branding</span>
+              <span class="tag" style="font-size:8px;padding:3px 10px">Visual Research</span>
+              <span class="tag" style="font-size:8px;padding:3px 10px">Toronto</span>
+            </div>
+          </div>
+        </div>
+        <!-- 05: VICARAM -->
+        <div class="featured reveal" style="border-top:1px solid var(--rule)">
+          <div class="feat-media" style="background:#0d0d1a">
+            <span class="feat-badge" style="background:var(--mint)">05</span>
+            <img src="vicaram-dhruva.png" alt="Vicaram — Dhruva and Brahman" class="feat-img-static" style="object-position:center">
+          </div>
+          <div class="feat-info">
+            <div>
+              <div class="feat-num">05 / Professional · Ongoing</div>
+              <div class="feat-title">Vicaram Studio</div>
+              <div class="feat-meta">Adobe Fresco · Illustration · Art Direction · 2024–Present</div>
+              <p class="feat-desc">A collaborative creative project reimagining Hindu sacred storytelling for contemporary audiences. Vicaram is currently live as an audio podcast on Spotify with a YouTube channel launching soon. My role involves consulting on colour palettes, visual themes, and art direction, alongside creating digital illustrations in Adobe Fresco for video and audiobook content in production.</p>
+              <div class="feat-tags">
+                <span class="tag tag-mint" style="font-size:8px;padding:3px 10px">Illustration</span>
+                <span class="tag" style="font-size:8px;padding:3px 10px">Art Direction</span>
+                <span class="tag tag-pink" style="font-size:8px;padding:3px 10px">Ongoing</span>
+              </div>
+            </div>
+            <a href="https://www.youtube.com/@vicara-studio" target="_blank" class="feat-arrow">↗</a>
+          </div>
+        </div>
+        <div class="thumb-strip reveal">
+          <div class="thumb-strip-label">// illustrations — click to enlarge</div>
+          <div class="thumbs">
+            <div class="thumb" onclick="openLightbox('vicaram-gold.jpg','Gold')"><img src="vicaram-gold.jpg" alt="Gold"><span class="thumb-label">Gold</span></div>
+            <div class="thumb" onclick="openLightbox('vicaram-dhruva.png','Dhruva and Brahman')"><img src="vicaram-dhruva.png" alt="Dhruva"><span class="thumb-label">Dhruva</span></div>
+            <div class="thumb" onclick="openLightbox('vicaram-lotus.png','Lotus Scene')"><img src="vicaram-lotus.png" alt="Lotus"><span class="thumb-label">Lotus</span></div>
+          </div>
+        </div>
+
+        <!-- SMALL GRID: 06 + 07 -->
+        <div class="proj-grid reveal">
+          <div class="proj-cell" onclick="openModal(0)">
+            <div class="proj-img bg-pink"><img src="Design philosophy.png" alt="Design Philosophy" onerror="this.style.display='none'"></div>
+            <div class="proj-foot">
+              <div>
+                <div class="proj-num">06</div>
+                <div class="proj-title">Design Philosophy</div>
+                <div class="proj-meta">Adobe Illustrator · 2025</div>
+              </div>
+              <div class="proj-arrow">→</div>
+            </div>
+          </div>
+          <div class="proj-cell" onclick="openModal(1)">
+            <div class="proj-img bg-mint"><img src="ELearning poster (1) (1).png" alt="E-learn" onerror="this.style.display='none'"></div>
+            <div class="proj-foot">
+              <div>
+                <div class="proj-num">07</div>
+                <div class="proj-title">E-learn Campaign</div>
+                <div class="proj-meta">Adobe Express · 2025</div>
+              </div>
+              <div class="proj-arrow">→</div>
+            </div>
+          </div>
+          <div class="proj-cell" style="cursor:default;display:flex;align-items:center;justify-content:center;background:var(--soft)">
+            <div style="text-align:center;padding:24px">
+              <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:8px">// more coming</div>
+              <div style="font-size:20px;font-weight:900;color:var(--ink)">Always<br>creating.</div>
+            </div>
+          </div>
+        </div>
 
       </div>
-    </div>
 
-    <!-- LIGHTBOX -->
-    <div class="lightbox" id="lightbox">
-      <button class="lb-close" id="lbClose">[ close × ]</button>
-      <div class="lb-inner">
-        <img class="lb-img" id="lbImg" src="#" alt="">
-        <div class="lb-caption" id="lbCaption"></div>
-        <div class="lb-hint">click outside or press esc to close</div>
-      </div>
-    </div>
-
-    <!-- MODAL -->
-    <div class="modal" id="modal">
-      <div class="modal-box">
-        <div class="modal-bar">
-          <span class="modal-bar-title">Project</span>
-          <button class="modal-close" onclick="closeModal()">[ close ]</button>
+      <!-- ABOUT + CONTACT -->
+      <div class="bottom-grid" id="about">
+        <div class="about-block reveal">
+          <div class="about-h">About<br><span class="pink">me.</span></div>
+          <div class="about-body">First year GBDA student at the University of Waterloo. Graphic designer based in Toronto, experimenting with bold typography, digital illustration, and visual storytelling. I work in Adobe Illustrator, Fresco, Express, Figma, and HTML/CSS.</div>
+          <div class="chips">
+            <span class="chip chip-mint">Bricolage Grotesque ♥</span>
+            <span class="chip chip-pink">Learning JS</span>
+            <span class="chip">Figma</span>
+            <span class="chip">Illustrator</span>
+            <span class="chip">Adobe Fresco</span>
+          </div>
+          <a href="CV_Bhoomika_Narayanan.pdf" target="_blank" class="cv-link">View my CV ↗</a>
         </div>
-        <div class="modal-inner">
-          <div class="modal-img-wrap"><img class="modal-img" id="modalImg" src="#" alt=""></div>
-          <div class="modal-content">
-            <div class="modal-title" id="modalTitle"></div>
-            <div class="modal-meta" id="modalMeta"></div>
-            <div class="modal-desc" id="modalDesc"></div>
+        <div class="contact-block reveal" id="contact" style="transition-delay:0.1s">
+          <div class="contact-h">Let's<br><span class="mint">talk.</span></div>
+          <div class="clinks">
+            <a href="mailto:narayananbn180@gmail.com" class="clink">
+              <div class="clink-name">Email</div>
+              <div class="clink-handle">narayananbn180@gmail.com</div>
+              <div class="clink-arr">↗</div>
+            </a>
+            <a href="https://www.instagram.com/b_mi.art/" target="_blank" class="clink">
+              <div class="clink-name">Instagram</div>
+              <div class="clink-handle">@b_mi.art</div>
+              <div class="clink-arr">↗</div>
+            </a>
+            <a href="https://ca.pinterest.com/Bumi173/" target="_blank" class="clink">
+              <div class="clink-name">Pinterest</div>
+              <div class="clink-handle">Bumi173</div>
+              <div class="clink-arr">↗</div>
+            </a>
           </div>
         </div>
       </div>
+
+      <!-- FOOTER -->
+      <footer>
+        <div class="footer-copy">© 2026 Bhoomika Narayanan</div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:1px;">GBDA · University of Waterloo · Toronto</div>
+        <div class="footer-dots">
+          <div class="fd" style="background:var(--pink)"></div>
+          <div class="fd" style="background:var(--mint)"></div>
+          <div class="fd" style="background:#ddd"></div>
+        </div>
+      </footer>
+
     </div>
+  </div>
 
-    <script>
-      const cursor = document.getElementById('cursor');
-      document.addEventListener('mousemove', e => {
-        cursor.style.left = e.clientX + 'px';
-        cursor.style.top = e.clientY + 'px';
-      });
-      document.addEventListener('mousedown', () => cursor.classList.add('clicked'));
-      document.addEventListener('mouseup', () => cursor.classList.remove('clicked'));
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox">
+    <button class="lb-close" id="lbClose">[ close × ]</button>
+    <div class="lb-inner">
+      <img class="lb-img" id="lbImg" src="#" alt="">
+      <div class="lb-caption" id="lbCaption"></div>
+      <div class="lb-hint">click outside or press esc to close</div>
+    </div>
+  </div>
 
-      const obs = new IntersectionObserver(entries => {
-        entries.forEach(e => {
-          if (e.isIntersecting) e.target.classList.add('visible');
-        });
-      }, {
-        threshold: 0.08
-      });
-      document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+  <!-- MODAL -->
+  <div class="modal" id="modal">
+    <div class="modal-box">
+      <div class="modal-bar">
+        <span class="modal-bar-title">Project</span>
+        <button class="modal-close" onclick="closeModal()">[ close ]</button>
+      </div>
+      <div class="modal-inner">
+        <div class="modal-img-wrap"><img class="modal-img" id="modalImg" src="#" alt=""></div>
+        <div class="modal-content">
+          <div class="modal-title" id="modalTitle"></div>
+          <div class="modal-meta" id="modalMeta"></div>
+          <div class="modal-desc" id="modalDesc"></div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-      const lb = document.getElementById('lightbox');
-      const lbImg = document.getElementById('lbImg');
-      const lbCap = document.getElementById('lbCaption');
+  <script>
+    const cursor = document.getElementById('cursor');
+    document.addEventListener('mousemove', e => { cursor.style.left = e.clientX+'px'; cursor.style.top = e.clientY+'px'; });
+    document.addEventListener('mousedown', () => cursor.classList.add('clicked'));
+    document.addEventListener('mouseup',   () => cursor.classList.remove('clicked'));
 
-      function openLightbox (src, cap) {
-        lbImg.src = src;
-        lbCap.textContent = cap;
-        lb.classList.add('active');
-        document.body.style.overflow = 'hidden';
-      }
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 
-      function closeLightbox () {
-        lb.classList.remove('active');
-        document.body.style.overflow = '';
-      }
-      document.getElementById('lbClose').addEventListener('click', closeLightbox);
-      lb.addEventListener('click', e => {
-        if (e.target === lb) closeLightbox();
-      });
+    const lb    = document.getElementById('lightbox');
+    const lbImg = document.getElementById('lbImg');
+    const lbCap = document.getElementById('lbCaption');
+    function openLightbox(src, cap) { lbImg.src = src; lbCap.textContent = cap; lb.classList.add('active'); document.body.style.overflow = 'hidden'; }
+    function closeLightbox() { lb.classList.remove('active'); document.body.style.overflow = ''; }
+    document.getElementById('lbClose').addEventListener('click', closeLightbox);
+    lb.addEventListener('click', e => { if (e.target === lb) closeLightbox(); });
 
-      const projects = [{
-          img: 'Design philosophy.png',
-          title: 'Design Philosophy',
-          meta: '2025 · Digital Media 2 · Adobe Illustrator',
-          desc: 'Created for a Digital Media 2 class assignment where I had to answer a series of "get to know me" questions through design. This poster was my answer to the question about my design philosophy. My philosophy comes down to a few core beliefs: small details can make or break a design, beauty and aesthetics matter, design is human-centered, and growth only happens through feedback and iteration. I wanted the poster itself to reflect those values, so every detail was deliberate.'
-        },
-        {
-          img: 'ELearning poster (1) (1).png',
-          title: 'E-learn Campaign',
-          meta: '2025 · Digital Media 2 · Adobe Express',
-          desc: 'Also from the Digital Media 2 "get to know me" series. This one asked about a career I would want in the future. I chose educational technology and instructional design because it sits right at the intersection of two sides of my brain: the technical, process-heavy side and the creative side. EdTech is a field where good design actually changes how people learn, which felt like the right answer for me.'
-        }
-      ];
+    const projects = [
+      { img: 'Design philosophy.png', title: 'Design Philosophy', meta: '2025 · Digital Media 2 · Adobe Illustrator', desc: 'Created for a Digital Media 2 class assignment where I had to answer a series of "get to know me" questions through design. This poster was my answer to the question about my design philosophy. My philosophy comes down to a few core beliefs: small details can make or break a design, beauty and aesthetics matter, design is human-centered, and growth only happens through feedback and iteration. I wanted the poster itself to reflect those values, so every detail was deliberate.' },
+      { img: 'ELearning poster (1) (1).png', title: 'E-learn Campaign', meta: '2025 · Digital Media 2 · Adobe Express', desc: 'Also from the Digital Media 2 "get to know me" series. This one asked about a career I would want in the future. I chose educational technology and instructional design because it sits right at the intersection of two sides of my brain: the technical, process-heavy side and the creative side. EdTech is a field where good design actually changes how people learn, which felt like the right answer for me.' }
+    ];
+    function openModal(i) {
+      const p = projects[i];
+      document.getElementById('modalImg').src = p.img;
+      document.getElementById('modalTitle').textContent = p.title;
+      document.getElementById('modalMeta').textContent  = p.meta;
+      document.getElementById('modalDesc').textContent  = p.desc;
+      document.getElementById('modal').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeModal() { document.getElementById('modal').classList.remove('active'); document.body.style.overflow = ''; }
+    document.getElementById('modal').addEventListener('click', e => { if (e.target.id === 'modal') closeModal(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeLightbox(); closeModal(); } });
+    // slideshow
+    let current = 0;
+    const slides = document.querySelectorAll('.slide');
+    function moveSlide(dir) {
+      slides[current].classList.remove('active');
+      current = (current + dir + slides.length) % slides.length;
+      slides[current].classList.add('active');
+      document.getElementById('sunriseCounter').textContent = (current + 1) + ' / ' + slides.length;
+    }
 
-      function openModal (i) {
-        const p = projects[i];
-        document.getElementById('modalImg').src = p.img;
-        document.getElementById('modalTitle').textContent = p.title;
-        document.getElementById('modalMeta').textContent = p.meta;
-        document.getElementById('modalDesc').textContent = p.desc;
-        document.getElementById('modal').classList.add('active');
-        document.body.style.overflow = 'hidden';
-      }
-
-      function closeModal () {
-        document.getElementById('modal').classList.remove('active');
-        document.body.style.overflow = '';
-      }
-      document.getElementById('modal').addEventListener('click', e => {
-        if (e.target.id === 'modal') closeModal();
-      });
-      document.addEventListener('keydown', e => {
-        if (e.key === 'Escape') {
-          closeLightbox();
-          closeModal();
-        }
-      });
-      document.querySelectorAll('a[href^="#"]').forEach(a => {
-        a.addEventListener('click', function (e) {
-          e.preventDefault();
-          const t = document.querySelector(this.getAttribute('href'));
-          if (t) t.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
-          });
-        });
-      });
-    </script>
-  </body>
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', function(e) { e.preventDefault(); const t = document.querySelector(this.getAttribute('href')); if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' }); });
+    });
+  </script>
+</body>
 </html>
