@@ -168,31 +168,24 @@
     .reveal.visible { opacity: 1; transform: none; }
 
     /* behind the code */
-<div class="code-bar">
-  <div class="code-dots"><span></span><span></span><span></span></div>
-  <span class="code-bar-title">style.css — colors, type &amp; custom cursor</span>
-</div>
-<pre class="code-body"><code><span class="tok-com">/* design tokens */</span>
-<span class="tok-kw">:root</span> {
-  <span class="tok-fn">--pink</span>: <span class="tok-str">#e8457a</span>;
-  <span class="tok-fn">--mint</span>: <span class="tok-str">#2ecc8e</span>;
-  <span class="tok-fn">--ink</span>:  <span class="tok-str">#111111</span>;
-}
-
-<span class="tok-kw">body</span> {
-  <span class="tok-fn">font-family</span>: <span class="tok-str">'Bricolage Grotesque', sans-serif</span>;
-  <span class="tok-fn">color</span>: <span class="tok-str">var(--ink)</span>;
-}
-
-<span class="tok-com">/* custom cursor */</span>
-<span class="tok-kw">.cursor</span> {
-  <span class="tok-fn">width</span>: <span class="tok-str">16px</span>;
-  <span class="tok-fn">height</span>: <span class="tok-str">16px</span>;
-  <span class="tok-fn">border</span>: <span class="tok-str">2px solid var(--pink)</span>;
-  <span class="tok-fn">border-radius</span>: <span class="tok-str">50%</span>;
-  <span class="tok-fn">mix-blend-mode</span>: <span class="tok-str">multiply</span>;
-}</code></pre> 
-    <p class="code-credit-text">Built by hand in HTML, CSS &amp; JS — the color palette, typography, and custom cursor were learned by following <a href="https://netnet.studio" target="_blank">Netnet</a>'s web design tutorials. Full credit to them for teaching me these techniques.</p>
+/* behind the code */
+.code-peek { padding: 32px 36px 44px; }
+.code-window { max-width: 720px; margin: 0 auto 22px; border: 1px solid var(--rule); border-radius: 6px; overflow: hidden; background: #111318; box-shadow: 0 18px 40px -20px rgba(0,0,0,0.35); }
+.code-bar { display: flex; align-items: center; gap: 10px; padding: 10px 16px; background: #1a1c22; border-bottom: 1px solid rgba(255,255,255,0.08); }
+.code-dots { display: flex; gap: 6px; }
+.code-dots span { width: 9px; height: 9px; border-radius: 50%; display: block; }
+.code-dots span:nth-child(1) { background: var(--pink); }
+.code-dots span:nth-child(2) { background: #f5c451; }
+.code-dots span:nth-child(3) { background: var(--mint); }
+.code-bar-title { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 1px; color: rgba(255,255,255,0.35); margin-left: 4px; }
+.code-body { margin: 0; padding: 20px 22px; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; line-height: 1.95; color: #e6e6e6; overflow-x: auto; white-space: pre; }
+.tok-kw  { color: var(--pink); }
+.tok-fn  { color: #7db9ff; }
+.tok-str { color: var(--mint); }
+.tok-com { color: #6b6f76; font-style: italic; }
+.code-credit-text { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 1px; line-height: 2; text-transform: uppercase; color: var(--muted); max-width: 720px; margin: 0 auto; text-align: center; }
+.code-credit-text a { color: var(--pink); text-decoration: none; border-bottom: 1px solid var(--pink-mid); transition: opacity 0.15s; }
+.code-credit-text a:hover { opacity: 0.7; }
     
     @media (max-width: 768px) {
       .stripe { display: none; }
