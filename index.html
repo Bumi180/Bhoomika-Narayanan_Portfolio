@@ -93,12 +93,13 @@
     .thumb img { width: 100%; height: 60px; object-fit: cover; object-position: top; display: block; }
     .thumb-label { font-family: 'Bricolage Grotesque', sans-serif; font-size: 11px; font-weight: 700; color: var(--ink); padding: 5px 8px; display: block; border-top: 1px solid var(--rule); }
 
-    .proj-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; border-bottom: 1px solid var(--rule); }
-    .proj-cell { border-right: 1px solid var(--rule); cursor: pointer; transition: background 0.15s; }
-    .proj-cell:last-child { border-right: none; }
-    .proj-cell:hover { background: var(--soft); }
-    .proj-img { width: 100%; aspect-ratio: 3/2; overflow: hidden; display: flex; align-items: center; justify-content: center; }
-    .proj-img img { width: 100%; height: 100%; object-fit: contain; display: block; transition: transform 0.4s ease; }
+    .proj-grid { display: flex; align-items: stretch; gap: 56px; border-bottom: 1px solid var(--rule); }
+    .proj-cell { cursor: pointer; transition: background 0.15s; display: flex; flex-direction: column; }
+    .proj-cell.proj-card { flex: 0 0 300px; width: 300px; }
+    .proj-cell.proj-fill { flex: 1 1 auto; min-width: 180px; cursor: default; }
+    .proj-cell.proj-card:hover { background: var(--soft); }
+    .proj-img { width: 100%; aspect-ratio: 3/4; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+    .proj-img img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.4s ease; }
     .proj-cell:hover .proj-img img { transform: scale(1.04); }
     .bg-pink  { background: var(--pink-light); }
     .bg-soft  { background: var(--soft); }
@@ -177,8 +178,10 @@
       .feat-media { border-right: none; border-bottom: 1px solid var(--rule); }
       .feat-info { padding: 24px 20px; }
       .thumb-strip { padding: 14px 20px; }
-      .proj-grid { grid-template-columns: 1fr; }
-      .proj-cell { border-right: none; border-bottom: 1px solid var(--rule); }
+      .proj-grid { flex-direction: column; gap: 20px; }
+      .proj-cell.proj-card { width: 100%; flex-basis: auto; }
+      .proj-cell.proj-fill { min-width: 0; padding: 20px 0; }
+      .proj-cell { border-bottom: 1px solid var(--rule); }
       .bottom-grid { grid-template-columns: 1fr; }
       .about-block { border-right: none; border-bottom: 1px solid var(--rule); padding: 28px 20px; }
       .contact-block { padding: 28px 20px; }
@@ -384,7 +387,7 @@
 
         <!-- SMALL GRID: 06 + 07 -->
         <div class="proj-grid reveal">
-          <div class="proj-cell" onclick="openModal(0)">
+          <div class="proj-cell proj-card" onclick="openModal(0)">
             <div class="proj-img bg-pink"><img src="Design philosophy.png" alt="Design Philosophy" onerror="this.style.display='none'"></div>
             <div class="proj-foot">
               <div>
@@ -395,7 +398,7 @@
               <div class="proj-arrow">→</div>
             </div>
           </div>
-          <div class="proj-cell" onclick="openModal(1)">
+          <div class="proj-cell proj-card" onclick="openModal(1)">
             <div class="proj-img bg-mint"><img src="ELearning poster (1) (1).png" alt="E-learn" onerror="this.style.display='none'"></div>
             <div class="proj-foot">
               <div>
@@ -406,7 +409,7 @@
               <div class="proj-arrow">→</div>
             </div>
           </div>
-          <div class="proj-cell" style="cursor:default;display:flex;align-items:center;justify-content:center;background:var(--soft)">
+          <div class="proj-cell proj-fill" style="align-items:center;justify-content:center;background:var(--soft)">
             <div style="text-align:center;padding:24px">
               <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:8px">// more coming</div>
               <div style="font-size:20px;font-weight:900;color:var(--ink)">Always<br>creating.</div>
